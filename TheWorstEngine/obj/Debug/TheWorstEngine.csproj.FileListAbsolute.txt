@@ -1,0 +1,9 @@
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\bin\Debug\TheWorstEngine.pdb
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Debug\TheWorstEngine.Properties.Resources.resources
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Debug\TheWorstEngine.csproj.GenerateResource.cache
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Debug\TheWorstEngine.csproj.CoreCompileInputs.cache
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Debug\TheWorstEngine.pdb
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\bin\Debug\TheWorstEngine.dll.config
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\bin\Debug\TheWorstEngine.dll
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Debug\TheWorstEngine.dll
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Debug\TheWorstEngine.csprojAssemblyReference.cache
