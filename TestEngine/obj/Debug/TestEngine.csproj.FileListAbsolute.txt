@@ -3,7 +3,6 @@ D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\TestEngin
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\TestEngine.pdb
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\TheWorstEngine.dll
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\TheWorstEngine.pdb
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\TheWorstEngine.dll.config
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\obj\Debug\TestEngine.csprojAssemblyReference.cache
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\obj\Debug\TestEngine.csproj.CoreCompileInputs.cache
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\obj\Debug\TestEngine.csproj.CopyComplete
@@ -15,3 +14,4 @@ D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\LangSyste
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\LogSystem.dll
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\LangSystem.pdb
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\LogSystem.pdb
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\obj\Debug\TestEngine.Form2.resources
