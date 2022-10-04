@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TheWorstEngine;
+using TheWorstEngine.AnimFunction;
 using LogSystem;
 using LangSystem;
 
@@ -9,8 +9,8 @@ namespace TestEngine
 {
     public partial class Main : Form
     {
-        Twe sans1 = new Twe();
-        Twe sans2 = new Twe();
+        TweAnim sans1 = new TweAnim();
+        TweAnim sans2 = new TweAnim();
         Log log = new Log();
         Lang lang = new Lang();
         public Main()
@@ -19,10 +19,8 @@ namespace TestEngine
             CheckForIllegalCrossThreadCalls = false;
             //Thread RunTask = new Thread(Run);
             //RunTask.Start();
-            sans2.form = this;
-            sans2.picturebox = pictureBox2;
-            sans1.form = this;
-            sans1.picturebox = pictureBox1;
+            sans2.Load(this, pictureBox2);
+            sans1.Load(this, pictureBox1);
             log.LogWriteInit();
             log.TimeShowSet(true);
             log.Info(sans1.SetResolution(new Size(544, 351)));
@@ -32,8 +30,8 @@ namespace TestEngine
                 ".\\img\\sans3.png", ".\\img\\sans4.png",
             ".\\img\\sans3.png", ".\\img\\sans2.png", ".\\img\\sans1.png"};
             // pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
-            sans1.NewAnim(FS, 5, FPS);
-            sans2.NewAnim(FS, 5, FPS2);
+            sans1.SetAnim(FS, 5, FPS);
+            sans2.SetAnim(FS, 5, FPS2);
         }
 
         public void LangInit()

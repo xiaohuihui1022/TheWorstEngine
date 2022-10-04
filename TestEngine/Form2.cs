@@ -1,28 +1,29 @@
 ﻿using System;
-using TheWorstEngine;
+using TheWorstEngine.AnimFunction;
 using System.Windows.Forms;
 
 namespace TestEngine
 {
     public partial class Form2 : Form
     {
-        Twe sans1 = new Twe();
-        Twe Heart = new Twe();
+        TweAnim sans1 = new TweAnim();
+        TweAnim Heart = new TweAnim();
+        TweSound mega = new TweSound();
         public Form2()
         {
             InitializeComponent();
-            sans1.form = this;
-            sans1.picturebox = sans;
+            sans1.Load(this, sans);
+            mega.Load(this, @".\sound\mega.ogg");
             string[] FS = { ".\\img\\sans1.png", ".\\img\\sans2.png",
                 ".\\img\\sans3.png", ".\\img\\sans4.png",
             ".\\img\\sans3.png", ".\\img\\sans2.png", ".\\img\\sans1.png"};
-            sans1.NewAnim(FS, 5, label1);
-            Heart.form = this;
-            Heart.picturebox = heart;
-            Heart.NewImage(@".\img\red.png");
+            sans1.SetAnim(FS, 5, label1);
+            Heart.Load(this, heart);
+            Heart.SetImage(@".\img\red.png");
             // Heart.KeySet(Keys.Up, Keys.Down, Keys.Left, Keys.Right);
             Heart.CanMove(true);
-
+            mega.PlaySound();
+            // sans1.AnimSound(@".\sound\mega.ogg");
             // sans1.KeySet(Keys.Up, Keys.Down, Keys.Left, Keys.Right);
             // sans1.CanMove(true);
         }

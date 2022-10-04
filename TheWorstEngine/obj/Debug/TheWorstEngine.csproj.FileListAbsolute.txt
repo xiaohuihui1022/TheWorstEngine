@@ -6,3 +6,6 @@ D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Debug\TheWo
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\bin\Debug\TheWorstEngine.dll
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Debug\TheWorstEngine.dll
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Debug\TheWorstEngine.csprojAssemblyReference.cache
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\bin\Debug\NAudio.dll
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\bin\Debug\NAudio.xml
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Debug\TheWorstEngine.csproj.CopyComplete
