@@ -2,7 +2,9 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using System.Media;
+
+// 音频处理
+using IrrKlang;
 // KeyManager
 // using System.Runtime.InteropServices;   //调用WINDOWS API函数时要用到
 // using Microsoft.Win32;  //写入注册表时要用到
@@ -44,8 +46,16 @@ namespace TheWorstEngine.AnimFunction
         private int FPSGlobal = 0;
         // 在FormClosing和move函数间的桥（是否可移动）
         private bool CanMoveOut = false;
+        // 在FormClosing和EnCircleThread函数间的桥（是否可移动）
+        private bool CanEnCircle = false;
         // 在FormClosing和move函数间的桥（移动thread）
         private Thread mthread;
+        // 在FormClosing和EnCircleThread的桥
+        private Thread Ethread;
+        // 包围(相当于UT的白框)
+        private PictureBox Encirclement;
+        // 被包围(相当于UT的决心)
+        private PictureBox BeEncirclement;
         // 初始化函数 懒得用get set
         public void Load(Form fo, PictureBox picture)
         {
@@ -117,9 +127,8 @@ namespace TheWorstEngine.AnimFunction
                 k_hook.KeyUpEvent += new KeyEventHandler(Hook_KeyUp);
                 k_hook.Start();//安装键盘钩子*/
                 // 测试函数
-                Thread moveThread = new Thread(MoveThread);
-                mthread = moveThread;
-                moveThread.Start();
+                mthread = new Thread(MoveThread);
+                mthread.Start();
                 form.KeyDown += new KeyEventHandler(Hook_KeyDown);
                 form.KeyUp += new KeyEventHandler(Hook_KeyUp);
                 form.FormClosing += new FormClosingEventHandler(Form_Closing);
@@ -143,6 +152,21 @@ namespace TheWorstEngine.AnimFunction
         {
             MoveSpeed = MS;
         }
+        /// <summary>
+        /// picturebox把picturebox包围
+        /// </summary>
+        /// <param name="Encircled">包围(相当于白框)</param>
+        /// <param name="BeEncircled">被包围(相当于决心)</param>
+        public void Encircle(PictureBox Encircled, PictureBox BeEncircled)
+        {
+            Encirclement = Encircled;
+            BeEncirclement = BeEncircled;
+            Ethread = new Thread(EnCircleThread);
+            CanEnCircle = true;
+            Ethread.Start();
+            form.FormClosing += new FormClosingEventHandler(Form_Closing);
+        }
+        
         /// <summary>
         /// 设置移动按键
         /// </summary>
@@ -226,6 +250,11 @@ namespace TheWorstEngine.AnimFunction
             {
                 // 注销移动函数
                 mthread.Abort();
+            }
+            if (CanEnCircle)
+            {
+                // 注销包围函数
+                Ethread.Abort();
             }
         }
         // 动画多线程方法
@@ -324,9 +353,98 @@ namespace TheWorstEngine.AnimFunction
                 Thread.Sleep(30);
             }
         }
+        // 包围多线程方法
+        private void EnCircleThread()
+        {
+            while (true)
+            {
+                if (BeEncirclement.Location.X <= Encirclement.Location.X + 10)
+                {
+                    form.KeyDown -= new KeyEventHandler(Hook_KeyDown);
+                    form.KeyUp -= new KeyEventHandler(Hook_KeyUp);
+                    isLeftKeyDown = false;
+                    BeEncirclement.Location = new Point(Encirclement.Location.X + 10
+                        , BeEncirclement.Location.Y);
+                    form.KeyDown += new KeyEventHandler(Hook_KeyDown);
+                    form.KeyUp += new KeyEventHandler(Hook_KeyUp);
+                }
+                if (BeEncirclement.Location.Y <= Encirclement.Location.Y + 10)
+                {
+                    form.KeyDown -= new KeyEventHandler(Hook_KeyDown);
+                    form.KeyUp -= new KeyEventHandler(Hook_KeyUp);
+                    isUpKeyDown = false;
+                    BeEncirclement.Location = new Point(BeEncirclement.Location.X
+                        , Encirclement.Location.Y + 10);
+                    form.KeyDown += new KeyEventHandler(Hook_KeyDown);
+                    form.KeyUp += new KeyEventHandler(Hook_KeyUp);
+                }
+                if (BeEncirclement.Location.X >= Encirclement.Location.X 
+                    + Encirclement.Width - 32)
+                {
+                    form.KeyDown -= new KeyEventHandler(Hook_KeyDown);
+                    form.KeyUp -= new KeyEventHandler(Hook_KeyUp);
+                    isRightKeyDown = false;
+                    BeEncirclement.Location = new Point(Encirclement.Location.X
+                       + Encirclement.Width - 32 , BeEncirclement.Location.Y);
+                    form.KeyDown += new KeyEventHandler(Hook_KeyDown);
+                    form.KeyUp += new KeyEventHandler(Hook_KeyUp);
+                }
+                if (BeEncirclement.Location.Y >= Encirclement.Location.Y
+                    + Encirclement.Height - 32)
+                {
+                    form.KeyDown -= new KeyEventHandler(Hook_KeyDown);
+                    form.KeyUp -= new KeyEventHandler(Hook_KeyUp);
+                    isDownKeyDown = false;
+                    BeEncirclement.Location = new Point(BeEncirclement.Location.X
+                        ,Encirclement.Location.Y + Encirclement.Height - 32);
+                    form.KeyDown += new KeyEventHandler(Hook_KeyDown);
+                    form.KeyUp += new KeyEventHandler(Hook_KeyUp);
+                }
+                Thread.Sleep(5);
+            }
+        }
     }
     public class TweSound
     {
+        private ISoundEngine IrrSoundEngine = new ISoundEngine();
+        private string FileName = "";
+        /// <summary>
+        /// 初始化函数
+        /// </summary>
+        /// <param name="MusicFileName">音乐文件位置</param>
+        public void Load(string MusicFileName)
+        {
+            FileName = MusicFileName;
+        }
+        /// <summary>
+        /// 播放音乐
+        /// </summary>
+        public void SoundPlay()
+        {
+            IrrSoundEngine.Play2D(FileName);
+        }
+        /// <summary>
+        /// 停止播放音乐
+        /// </summary>
+        public void SoundStop()
+        {
+            IrrSoundEngine.StopAllSounds();
+        }
+        /// <summary>
+        /// 暂停全部音乐
+        /// </summary>
+        public void SoundPaused()
+        {
+            IrrSoundEngine.SetAllSoundsPaused(true);
+        }
+        /// <summary>
+        /// 恢复全部音乐
+        /// </summary>
+        public void SoundDispaused()
+        {
+            IrrSoundEngine.SetAllSoundsPaused(false);
+        }
+        /*
         private SoundPlayer player = new SoundPlayer();
         private bool isLoaded = false;
         // private Form form;
@@ -353,7 +471,7 @@ namespace TheWorstEngine.AnimFunction
                 throw new Exception("请先load");
             }
             player.Stop();
-        }
+        }*/
         /*
         public void WindowSound()
         {
@@ -419,5 +537,50 @@ namespace TheWorstEngine.AnimFunction
         {
             _device?.Pause();
         }*/
+    }
+
+    // 废稿
+    public class TweDraw
+    {
+        private Form DrawForm;
+        private Graphics DrawEngine;
+        private bool isLoaded = false;
+        /// <summary>
+        /// 初始化函数
+        /// </summary>
+        /// <param name="f">要作画的窗口</param>
+        public void Load(Form f)
+        {
+            DrawForm = f;
+            DrawEngine = f.CreateGraphics();
+            isLoaded = true;
+        }
+        /// <summary>
+        /// 作画单个线
+        /// </summary>
+        /// <param name="pen">笔样式</param>
+        /// <param name="point1">第一点</param>
+        /// <param name="point2">第二点</param>
+        public void DrawLine(Pen pen, Point point1, Point point2)
+        {
+            if (!isLoaded)
+            {
+                throw new Exception("TweDraw:请先load");
+            }
+            DrawEngine.DrawLine(pen, point1, point2);
+        }
+        /// <summary>
+        /// 一堆线(按顺序连接)
+        /// </summary>
+        /// <param name="pen">笔样式</param>
+        /// <param name="points">点数组 </param>
+        public void DrawLines(Pen pen, Point[] points)
+        {
+            if (!isLoaded)
+            {
+                throw new Exception("TweDraw:请先load");
+            }
+            DrawEngine.DrawLines(pen, points);
+        }
     }
 }
