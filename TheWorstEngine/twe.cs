@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Threading;
-using NAudio.Wave;
 using System.Windows.Forms;
-using System.IO;
+using System.Media;
 // KeyManager
 // using System.Runtime.InteropServices;   //调用WINDOWS API函数时要用到
 // using Microsoft.Win32;  //写入注册表时要用到
@@ -43,6 +42,10 @@ namespace TheWorstEngine.AnimFunction
         private string[] FilesNameGlobal = { };
         // 动画FPS
         private int FPSGlobal = 0;
+        // 在FormClosing和move函数间的桥（是否可移动）
+        private bool CanMoveOut = false;
+        // 在FormClosing和move函数间的桥（移动thread）
+        private Thread mthread;
         // 初始化函数 懒得用get set
         public void Load(Form fo, PictureBox picture)
         {
@@ -98,7 +101,6 @@ namespace TheWorstEngine.AnimFunction
             picturebox.Image = Image.FromFile(FileName);
             return "已将图片设置为:" + FileName;
         }
-
         // 移动函数
         /// <summary>
         /// 是否可以移动
@@ -108,12 +110,19 @@ namespace TheWorstEngine.AnimFunction
         {
             if (CanItMove)
             {
+                CanMoveOut = CanItMove;
                 /*
                 KeyManager k_hook = new KeyManager();
-                k_hook.KeyDownEvent += new KeyEventHandler(hook_KeyDown);//钩住键按下
+                k_hook.KeyDownEvent += new KeyEventHandler(Hook_KeyDown);//钩住键按下
+                k_hook.KeyUpEvent += new KeyEventHandler(Hook_KeyUp);
                 k_hook.Start();//安装键盘钩子*/
+                // 测试函数
+                Thread moveThread = new Thread(MoveThread);
+                mthread = moveThread;
+                moveThread.Start();
                 form.KeyDown += new KeyEventHandler(Hook_KeyDown);
                 form.KeyUp += new KeyEventHandler(Hook_KeyUp);
+                form.FormClosing += new FormClosingEventHandler(Form_Closing);
             }
         }
         /// <summary>
@@ -168,85 +177,26 @@ namespace TheWorstEngine.AnimFunction
             {
 
             }*/
-            if (e.KeyCode == UpKeyGlobal)
+            
+            if (e.KeyValue == (int)UpKeyGlobal)
             {
                 isUpKeyDown = true;
-                if (isLeftKeyDown)
-                {
-                    picturebox.Location = new Point(
-                    x - MoveSpeed, y - MoveSpeed);
-                }
-                else if (isRightKeyDown)
-                {
-                    picturebox.Location = new Point(
-                    x + MoveSpeed, y - MoveSpeed);
-                }
-                else
-                {
-                    picturebox.Location = new Point(
-                    x, y - MoveSpeed);
-                }
                 // Console.WriteLine("按下了" + UpKeyGlobal);
             }
             else if (e.KeyCode == DownKeyGlobal)
             {
                 isDownKeyDown = true;
-                if (isLeftKeyDown)
-                {
-                    picturebox.Location = new Point(
-                    x - MoveSpeed, y + MoveSpeed);
-                }
-                else if (isRightKeyDown)
-                {
-                    picturebox.Location = new Point(
-                    x + MoveSpeed, y + MoveSpeed);
-                }
-                else
-                {
-                    picturebox.Location = new Point(
-                    x, y + MoveSpeed);
-                }
                 // Console.WriteLine("按下了" + DownKeyGlobal);
             }
             else if (e.KeyCode == LeftKeyGlobal)
             {
+                // Console.WriteLine(e.KeyCode);
                 isLeftKeyDown = true;
-                if (isUpKeyDown)
-                {
-                    picturebox.Location = new Point(
-                    x - MoveSpeed, y - MoveSpeed);
-                }
-                else if (isDownKeyDown)
-                {
-                    picturebox.Location = new Point(
-                    x - MoveSpeed, y + MoveSpeed);
-                }
-                else
-                {
-                    picturebox.Location = new Point(
-                    x - MoveSpeed, y);
-                }
                 // Console.WriteLine("按下了" + LeftKeyGlobal);
             }
             else if (e.KeyCode == RightKeyGlobal)
             {
                 isRightKeyDown = true;
-                if (isUpKeyDown)
-                {
-                    picturebox.Location = new Point(
-                    x + MoveSpeed, y - MoveSpeed);
-                }
-                else if (isDownKeyDown)
-                {
-                    picturebox.Location = new Point(
-                    x + MoveSpeed, y + MoveSpeed);
-                }
-                else
-                {
-                    picturebox.Location = new Point(
-                    x + MoveSpeed, y);
-                }
-                
                 // Console.WriteLine("按下了" + RightKeyGlobal);
             }  
         }
@@ -267,6 +217,15 @@ namespace TheWorstEngine.AnimFunction
             else if (e.KeyCode == DownKeyGlobal)
             {
                 isDownKeyDown = false;
+            }
+        }
+        // 关闭窗口的时候结束线程
+        private void Form_Closing(object sender, FormClosingEventArgs e)
+        {
+            if (CanMoveOut)
+            {
+                // 注销移动函数
+                mthread.Abort();
             }
         }
         // 动画多线程方法
@@ -306,19 +265,96 @@ namespace TheWorstEngine.AnimFunction
                 }
             }
         }
-        
+        // 移动多线程方法
+        private void MoveThread()
+        {
+            while (true)
+            {
+                int x = picturebox.Location.X;
+                int y = picturebox.Location.Y;
+                // 只按了上
+                if (isUpKeyDown && !isRightKeyDown && !isLeftKeyDown)
+                {
+                    picturebox.Location = new Point(
+                    x, y - MoveSpeed);
+                }
+                // 只按了下
+                else if (isDownKeyDown && !isRightKeyDown && !isLeftKeyDown)
+                {
+                    picturebox.Location = new Point(
+                    x, y + MoveSpeed);
+                }
+                // 只按了左
+                else if (isLeftKeyDown && !isUpKeyDown && !isDownKeyDown)
+                {
+                    picturebox.Location = new Point(
+                    x - MoveSpeed, y);
+                }
+                
+                // 只按了右
+                else if (isRightKeyDown && !isUpKeyDown && !isDownKeyDown)
+                {
+                    picturebox.Location = new Point(
+                    x + MoveSpeed, y);
+                }
+                // 按了上+左
+                else if (isUpKeyDown && isLeftKeyDown)
+                {
+                    picturebox.Location = new Point(
+                    x - MoveSpeed, y - MoveSpeed);
+                }
+                // 按了下+左
+                else if (isDownKeyDown && isLeftKeyDown)
+                {
+                    picturebox.Location = new Point(
+                    x - MoveSpeed, y + MoveSpeed);
+                }
+                // 按了上+右
+                else if (isUpKeyDown && isRightKeyDown)
+                {
+                    picturebox.Location = new Point(
+                    x + MoveSpeed, y - MoveSpeed);
+                }
+                // 按了下+右
+                else if (isDownKeyDown && isRightKeyDown)
+                {
+                    picturebox.Location = new Point(
+                    x + MoveSpeed, y + MoveSpeed);
+                }
+                Thread.Sleep(30);
+            }
+        }
     }
     public class TweSound
     {
-        private Form form;
-        private string SoundFileName;
-        private IWavePlayer _device;
-        private AudioFileReader _reader;
-        public void Load(Form fo, string FileName)
+        private SoundPlayer player = new SoundPlayer();
+        private bool isLoaded = false;
+        // private Form form;
+        // private IWavePlayer _device;
+        // private AudioFileReader _reader;
+        public void Load(string FileName)
         {
-            form = fo;
-            SoundFileName = FileName;
+            // form = fo;
+            player.SoundLocation = FileName;
+            isLoaded = true;
         }
+        public void SoundPlay()
+        {
+            if (!isLoaded)
+            {
+                throw new Exception("请先load");
+            }
+            player.Play();
+        }
+        public void SoundStop()
+        {
+            if (!isLoaded)
+            {
+                throw new Exception("请先load");
+            }
+            player.Stop();
+        }
+        /*
         public void WindowSound()
         {
             try
@@ -373,6 +409,7 @@ namespace TheWorstEngine.AnimFunction
         /// </summary>
         public void PlaySound()
         {
+            WindowSound();
             _device?.Play();
         }
         /// <summary>
@@ -381,6 +418,6 @@ namespace TheWorstEngine.AnimFunction
         public void PauseSound()
         {
             _device?.Pause();
-        }
+        }*/
     }
 }

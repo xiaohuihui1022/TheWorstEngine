@@ -15,5 +15,3 @@ D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\LogSystem
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\LangSystem.pdb
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\LogSystem.pdb
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\obj\Debug\TestEngine.Form2.resources
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\NAudio.dll
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\NAudio.xml
