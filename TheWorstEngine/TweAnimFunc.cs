@@ -100,20 +100,6 @@ namespace TheWorstEngine.AnimFunction
             return "动画已创建";
         }
         /// <summary>
-        /// 帧动画
-        /// </summary>
-        /// <param name="FilesName">文件集,将所有需要参与演算的图片路径存到这个数组里</param>
-        /// <param name="FPS">帧数</param>
-        /// <param name="FPSLabel">绑定帧数显示label</param>
-        /// <returns></returns>
-        public string SetAnim(string[] FilesName, int FPS, Label FPSLabel)
-        {
-            isFPSShow = true;
-            FPSLabelG = FPSLabel;
-            SetAnim(FilesName, FPS);
-            return "动画已创建";
-        }
-        /// <summary>
         /// 设置图片用的
         /// </summary>
         /// <param name="FileName">图片路径，可以为任何图片格式(包括gif)</param>

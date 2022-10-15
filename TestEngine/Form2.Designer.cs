@@ -42,7 +42,7 @@
             // 
             // sans
             // 
-            this.sans.Location = new System.Drawing.Point(275, 177);
+            this.sans.Location = new System.Drawing.Point(275, 120);
             this.sans.Name = "sans";
             this.sans.Size = new System.Drawing.Size(261, 191);
             this.sans.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -73,7 +73,7 @@
             // 
             this.HealthCount.AutoSize = true;
             this.HealthCount.ForeColor = System.Drawing.Color.Red;
-            this.HealthCount.Location = new System.Drawing.Point(85, 494);
+            this.HealthCount.Location = new System.Drawing.Point(215, 494);
             this.HealthCount.Name = "HealthCount";
             this.HealthCount.Size = new System.Drawing.Size(78, 22);
             this.HealthCount.TabIndex = 5;
@@ -88,7 +88,6 @@
             this.nowhealth.Size = new System.Drawing.Size(40, 22);
             this.nowhealth.TabIndex = 6;
             this.nowhealth.Text = "100";
-            this.nowhealth.Visible = false;
             // 
             // dead
             // 

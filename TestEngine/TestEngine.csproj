@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleGS.cs" />
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>

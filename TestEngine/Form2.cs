@@ -14,11 +14,13 @@ namespace TestEngine
         TweSound mega = new TweSound();
         TweText Health = new TweText();
         TweSound EndingSound = new TweSound();
+        ConsoleGS console;
         private Thread Ending;
-        public Form2()
+        public Form2(ConsoleGS con)
         {
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+            console = con;
             SansInit();
             HeartInit();
             HealthInit();
@@ -28,7 +30,7 @@ namespace TestEngine
         private void HeartInit()
         {
             Heart.Load(this, heart);
-            Heart.SetResolution(new System.Drawing.Size(800, 600));
+            Heart.SetResolution(new Size(800, 600));
             Heart.SetImage(@".\img\red.png");
             Heart.Encircle(Line, heart, 4, 19);
             Heart.KeySet(Keys.Up, Keys.Down, Keys.Left, Keys.Right);
@@ -45,7 +47,7 @@ namespace TestEngine
         private void HealthInit()
         {
             Health.Load(this, HealthCount, nowhealth);
-            Health.AttackCheck(sans, heart, 10, true, 500);
+            Health.AttackCheck(sans, heart, 1, true, 5);
             Health.SetHurtSound(@".\sound\uts\hurt.wav");
             Ending = new Thread(EndThread);
             Ending.Start();
@@ -60,6 +62,8 @@ namespace TestEngine
         {
             while (true)
             {
+                nowhealth.Text = console.playerHealth;
+                Line.Size = new Size(console.LineX, console.LineY);
                 if (nowhealth.Text == "0")
                 {
                     mega.SoundStop();
@@ -73,7 +77,7 @@ namespace TestEngine
                     // TODO
                     Ending.Abort();
                 }
-                Thread.Sleep(10);
+                Thread.Sleep(50);
             }
         }
     }

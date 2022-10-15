@@ -4,34 +4,28 @@ using System.Windows.Forms;
 using TheWorstEngine.AnimFunction;
 using LogSystem;
 using LangSystem;
+using System.Threading;
 
 namespace TestEngine
 {
     public partial class Main : Form
     {
-        TweAnim sans1 = new TweAnim();
-        TweAnim sans2 = new TweAnim();
         Log log = new Log();
         Lang lang = new Lang();
+        ConsoleGS con = new ConsoleGS();
         public Main()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             //Thread RunTask = new Thread(Run);
             //RunTask.Start();
-            sans2.Load(this, pictureBox2);
-            sans1.Load(this, pictureBox1);
             log.LogWriteInit();
             log.TimeShowSet(true);
-            log.Info(sans1.SetResolution(new Size(544, 351)));
+            con.LineX = decimal.ToInt32(encircleX.Value);
+            con.LineY = decimal.ToInt32(encircleY.Value);
+            con.playerHealth = playerhealth.Value.ToString();
+            // log.Info(sans1.SetResolution(new Size(544, 351)));
             // log.Info(sans1.NewImage(@".\wt.gif"));
-
-            string[] FS = { ".\\img\\sans1.png", ".\\img\\sans2.png",
-                ".\\img\\sans3.png", ".\\img\\sans4.png",
-            ".\\img\\sans3.png", ".\\img\\sans2.png", ".\\img\\sans1.png"};
-            // pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
-            sans1.SetAnim(FS, 5, FPS);
-            sans2.SetAnim(FS, 5, FPS2);
         }
 
         public void LangInit()
@@ -56,16 +50,29 @@ namespace TestEngine
             // pictureBox1.Size = new Size(Width - 40, Height - 62);
         }
 
-        private void Main_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            sans1.isClosed = true;
-            sans2.isClosed = true;
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            Form2 f2 = new Form2();
+            Form2 f2 = new Form2(con);
             f2.Show();
+        }
+
+        private void playerhealth_ValueChanged(object sender, EventArgs e)
+        {
+            con.playerHealth = playerhealth.Value.ToString();
+        }
+
+        private void encircleX_ValueChanged(object sender, EventArgs e)
+        {
+            con.LineX = decimal.ToInt32(encircleX.Value);
+        }
+
+        private void encircleY_ValueChanged(object sender, EventArgs e)
+        {
+            con.LineY = decimal.ToInt32(encircleY.Value);
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
         }
     }
 }

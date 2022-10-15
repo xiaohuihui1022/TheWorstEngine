@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using IrrKlang;
 
@@ -117,6 +113,8 @@ namespace TheWorstEngine.UIFunction
                 Rectangle pictureBox1ScreenBounds = AtItem.Bounds;
                 Rectangle pictureBox2ScreenBounds = BeAtItem.Bounds;
                 bool intersected = pictureBox2ScreenBounds.IntersectsWith(pictureBox1ScreenBounds);
+                // 同步血量
+                PlayerNowHealth = int.Parse(NowHealth.Text);
                 if (intersected)
                 {
                     // 血量减少
@@ -145,8 +143,16 @@ namespace TheWorstEngine.UIFunction
                     }
                 }
                 Thread.Sleep(10);
+                
             }
             
+        }
+    }
+    public class TweProgress
+    {
+        public void Load()
+        {
+
         }
     }
 }
