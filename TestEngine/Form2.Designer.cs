@@ -35,6 +35,7 @@
             this.HealthCount = new System.Windows.Forms.Label();
             this.nowhealth = new System.Windows.Forms.Label();
             this.dead = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.sans)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Line)).BeginInit();
@@ -73,7 +74,7 @@
             // 
             this.HealthCount.AutoSize = true;
             this.HealthCount.ForeColor = System.Drawing.Color.Red;
-            this.HealthCount.Location = new System.Drawing.Point(215, 494);
+            this.HealthCount.Location = new System.Drawing.Point(310, 479);
             this.HealthCount.Name = "HealthCount";
             this.HealthCount.Size = new System.Drawing.Size(78, 22);
             this.HealthCount.TabIndex = 5;
@@ -83,11 +84,13 @@
             // 
             this.nowhealth.AutoSize = true;
             this.nowhealth.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.nowhealth.Location = new System.Drawing.Point(169, 494);
+            this.nowhealth.Location = new System.Drawing.Point(12, 531);
             this.nowhealth.Name = "nowhealth";
             this.nowhealth.Size = new System.Drawing.Size(40, 22);
             this.nowhealth.TabIndex = 6;
             this.nowhealth.Text = "100";
+            this.nowhealth.Visible = false;
+            this.nowhealth.TextChanged += new System.EventHandler(this.nowhealth_TextChanged);
             // 
             // dead
             // 
@@ -99,6 +102,14 @@
             this.dead.Size = new System.Drawing.Size(519, 150);
             this.dead.TabIndex = 7;
             this.dead.Text = "U are DEAD!\r\npress X to restart\r\n";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Red;
+            this.panel1.Location = new System.Drawing.Point(155, 476);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(149, 25);
+            this.panel1.TabIndex = 9;
             // 
             // Form2
             // 
@@ -112,6 +123,7 @@
             this.Controls.Add(this.Line);
             this.Controls.Add(this.nowhealth);
             this.Controls.Add(this.dead);
+            this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "Form2";
@@ -133,5 +145,6 @@
         private System.Windows.Forms.Label HealthCount;
         private System.Windows.Forms.Label nowhealth;
         private System.Windows.Forms.Label dead;
+        private System.Windows.Forms.Panel panel1;
     }
 }

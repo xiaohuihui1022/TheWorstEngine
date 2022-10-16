@@ -2,7 +2,6 @@ D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\TestEngin
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\TestEngine.exe
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\TestEngine.pdb
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\TheWorstEngine.dll
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\TheWorstEngine.pdb
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\obj\Debug\TestEngine.csprojAssemblyReference.cache
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\obj\Debug\TestEngine.csproj.CoreCompileInputs.cache
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\obj\Debug\TestEngine.csproj.CopyComplete
@@ -17,3 +16,4 @@ D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\LogSystem
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\obj\Debug\TestEngine.Form2.resources
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\irrKlang.NET4.dll
 D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\obj\Debug\TestEngine.Properties.Resources.resources
+D:\C#类编程文件\带工程\TWE\TheWorstEngine\TestEngine\bin\Debug\TheWorstEngine.pdb

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TheWorstEngine.AnimFunction;
+using TheWorstEngine;
 using LogSystem;
 using LangSystem;
 using System.Threading;
@@ -17,8 +17,8 @@ namespace TestEngine
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            //Thread RunTask = new Thread(Run);
-            //RunTask.Start();
+            // Thread RunTask = new Thread(Run);
+            // RunTask.Start();
             log.LogWriteInit();
             log.TimeShowSet(true);
             con.LineX = decimal.ToInt32(encircleX.Value);
@@ -36,14 +36,6 @@ namespace TestEngine
             lang.ChangeCreateLangType(0);
             lang.CreateLangStr("Null", "null");
         }
-        /// <summary>
-        /// 负责游戏刷新的函数，可重写
-        /// </summary>
-        //public static void Run()
-        //{
-        //    Thread.Sleep(10000);
-        //}
-
 
         private void Main_SizeChanged(object sender, EventArgs e)
         {
@@ -55,6 +47,8 @@ namespace TestEngine
             Form2 f2 = new Form2(con);
             f2.Show();
         }
+
+        #region Console相关events
 
         private void playerhealth_ValueChanged(object sender, EventArgs e)
         {
@@ -71,8 +65,11 @@ namespace TestEngine
             con.LineY = decimal.ToInt32(encircleY.Value);
         }
 
+        #endregion
+
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // nothing have to do.
         }
     }
 }

@@ -57,26 +57,39 @@ namespace TheWorstEngine.UIFunction
             PlayerNowHealth = PlayerInitHealth;
             l.Text = plyNowHealth.Text + " / " + plyNowHealth.Text;
         }
+
         /// <summary>
         /// 攻击检测
         /// </summary>
         /// <param name="AttackItem">攻击者(如sans的骨头)</param>
         /// <param name="BeAttackItem">被攻击者(如决心)</param>
         /// <param name="ReduceHealth">被攻击所减少的血量</param>
-        /// <param name="isInvincibleProtect">是否有无敌时间</param>
-        /// <param name="Invicinble">无敌时间长短(毫秒)</param>
         public void AttackCheck(PictureBox AttackItem, PictureBox BeAttackItem,
-             int ReduceHealth, bool isInvincibleProtect, int Invicinble)
+             int ReduceHealth)
         {
             AtItem = AttackItem;
             BeAtItem = BeAttackItem;
             ReduceHeal = ReduceHealth;
-            isInvicinbleTime = isInvincibleProtect;
-            InvicibleTime = Invicinble;
             BeAttackThread = new Thread(BeAttack);
             BeAttackThread.Start();
             form.FormClosing += new FormClosingEventHandler(Form_Closing);
         }
+
+        /// <summary>
+        /// 攻击检测
+        /// </summary>
+        /// <param name="AttackItem">攻击者(如sans的骨头)</param>
+        /// <param name="BeAttackItem">被攻击者(如决心)</param>
+        /// <param name="ReduceHealth">被攻击所减少的血量</param>
+        /// <param name="Invicinble">无敌时间长短(毫秒)</param>
+        public void AttackCheck(PictureBox AttackItem, PictureBox BeAttackItem,
+             int ReduceHealth, int Invicinble)
+        {
+            isInvicinbleTime = true;
+            InvicibleTime = Invicinble;
+            AttackCheck(AttackItem, BeAttackItem, ReduceHeal);
+        }
+
         /// <summary>
         /// 手动关闭线程，减轻电脑压力
         /// </summary>
@@ -85,6 +98,7 @@ namespace TheWorstEngine.UIFunction
             BeAttackThread.Abort();
             isAttackThreadClosed = true;
         }
+
         /// <summary>
         /// 设置被攻击音效
         /// </summary>
@@ -104,7 +118,6 @@ namespace TheWorstEngine.UIFunction
                 isAttackThreadClosed = true;
             }
         }
-
 
         private void BeAttack()
         {
@@ -146,13 +159,6 @@ namespace TheWorstEngine.UIFunction
                 
             }
             
-        }
-    }
-    public class TweProgress
-    {
-        public void Load()
-        {
-
         }
     }
 }
