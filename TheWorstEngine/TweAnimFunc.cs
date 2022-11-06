@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -406,6 +407,7 @@ namespace TheWorstEngine.AnimFunction
             }
         }
     }
+
     public class TweSound
     {
         private ISoundEngine IrrSoundEngine = new ISoundEngine();
@@ -541,48 +543,211 @@ namespace TheWorstEngine.AnimFunction
         }*/
     }
 
-    // 废稿
-    public class TweDraw
+    public class AnimationLib
     {
-        private Form DrawForm;
-        private Graphics DrawEngine;
-        private bool isLoaded = false;
+        // 需移动的项
+        private Control NeedMove;
+
+        // 移动的速度
+        private int MoveSpeed;
+
+        // 移动到的点
+        private Point MoveToLocation;
+
+        // 开始移动线程
+        private Thread StartMoveThread;
+
+        // 是否完成移动（公开）
+        public bool isMoveFinish = false;
+
         /// <summary>
-        /// 初始化函数
+        /// 加载函数
         /// </summary>
-        /// <param name="f">要作画的窗口</param>
-        public void Load(Form f)
+        /// <param name="MoveObject">需要移动的物体</param>
+        /// <param name="Power">移动速度</param>
+        /// <param name="MTlocation">要移动到的位置</param>
+        public void Load(Control MoveObject, int Power, Point MTlocation, Form fo)
         {
-            DrawForm = f;
-            DrawEngine = f.CreateGraphics();
-            isLoaded = true;
+            NeedMove = MoveObject;
+            MoveSpeed = Power;
+            MoveToLocation = MTlocation;
+            fo.FormClosing += new FormClosingEventHandler(Form_Closing);
+            StartMoveThread = new Thread(StartThread);
         }
+
         /// <summary>
-        /// 作画单个线
+        /// 开始动画函数（请先load里配置好在用）
         /// </summary>
-        /// <param name="pen">笔样式</param>
-        /// <param name="point1">第一点</param>
-        /// <param name="point2">第二点</param>
-        public void DrawLine(Pen pen, Point point1, Point point2)
+        public void Start()
         {
-            if (!isLoaded)
-            {
-                throw new Exception("TweDraw:请先load");
-            }
-            DrawEngine.DrawLine(pen, point1, point2);
+            isMoveFinish = false;
+            StartMoveThread.Start();
         }
+
         /// <summary>
-        /// 一堆线(按顺序连接)
+        /// 结束动画函数（先用开始才可以用这个，不然报错）
         /// </summary>
-        /// <param name="pen">笔样式</param>
-        /// <param name="points">点数组 </param>
-        public void DrawLines(Pen pen, Point[] points)
+        public void Stop()
         {
-            if (!isLoaded)
+            isMoveFinish = true;
+            StartMoveThread.Abort();
+        }
+
+        // 开始线程
+        private void StartThread()
+        {
+            #region 变量设置
+            // 原来的坐标
+            int fx = NeedMove.Location.X;
+            int fy = NeedMove.Location.Y;
+
+            // 要移动坐标
+            int nx = MoveToLocation.X;
+            int ny = MoveToLocation.Y;
+
+            // 八方
+            bool isNorth = false;
+            bool isSouth = false;
+            bool isWest = false;
+            bool isEast = false;
+
+            bool isNaE = false;
+            bool isNaW = false;
+            bool isSaE = false;
+            bool isSaW = false;
+            #endregion
+
+            #region 判断方位
+            // 北方
+            if (fx == nx && fy > ny)
             {
-                throw new Exception("TweDraw:请先load");
+                isNorth = true;
+                Console.WriteLine("正北方");
             }
-            DrawEngine.DrawLines(pen, points);
+            // 南方
+            else if (fx == nx && fy < ny)
+            {
+                isSouth = true;
+                Console.WriteLine("正南方");
+            }
+            // 西方
+            else if (fx > nx && fy == ny)
+            {
+                isEast = true;
+                Console.WriteLine("正西方");
+            }
+            // 东方
+            else if (fx < nx && fy == ny)
+            {
+                isWest = true;
+                Console.WriteLine("正东方");
+            }
+            // 北偏东
+            else if (fx < nx && fy > ny)
+            {
+                isNaE = true;
+                Console.WriteLine("北偏东方");
+            }
+            // 北偏西
+            else if (fx > nx && fy > ny)
+            {
+                isNaW = true;
+                Console.WriteLine("北偏西方");
+            }
+            // 南偏东
+            else if (fx < nx && fy < ny)
+            {
+                isSaE = true;
+                Console.WriteLine("南偏东方");
+            }
+            // 南偏西
+            else if (fx > nx && fy < ny)
+            {
+                isSaW = true;
+                Console.WriteLine("南偏西方");
+            }
+            #endregion
+
+            // 本体
+            while (true)
+            {
+                Point NowPoint = new Point();
+                int fxn = NeedMove.Location.X;
+                int fyn = NeedMove.Location.Y;
+                #region 判断语句
+                if (Math.Abs(fxn - nx) <= MoveSpeed && Math.Abs(fyn - ny) <= MoveSpeed)
+                {
+                    Console.WriteLine("已移动到位");
+                    isMoveFinish = true;
+                    isNorth = false;
+                    isSouth = false;
+                    isWest = false;
+                    isEast = false;
+                    isNaE = false;
+                    isNaW = false;
+                    isSaE = false;
+                    isSaW = false;
+                    break;
+                }
+                else if (isMoveFinish)
+                {
+                    Console.WriteLine("已移动到位");
+                    isNorth = false;
+                    isSouth = false;
+                    isWest = false;
+                    isEast = false;
+                    isNaE = false;
+                    isNaW = false;
+                    isSaE = false;
+                    isSaW = false;
+                }
+                if (isNorth)
+                {
+                    NowPoint = new Point(fxn, fyn - MoveSpeed);
+                }
+                else if (isSouth)
+                {
+                    NowPoint = new Point(fxn, fyn + MoveSpeed);
+                }
+                else if (isEast)
+                {
+                    NowPoint = new Point(fxn + MoveSpeed, fyn);
+                }
+                else if (isWest)
+                {
+                    NowPoint = new Point(fxn - MoveSpeed, fyn);
+                }
+
+                else if (isNaE)
+                {
+                    NowPoint = new Point(fxn + MoveSpeed, fyn - MoveSpeed);
+                }
+                else if (isNaW)
+                {
+                    NowPoint = new Point(fxn - MoveSpeed, fyn - MoveSpeed);
+                }
+                else if (isSaE)
+                {
+                    NowPoint = new Point(fxn + MoveSpeed, fyn + MoveSpeed);
+                }
+                else if (isSaW)
+                {
+                    NowPoint = new Point(fxn - MoveSpeed, fyn + MoveSpeed);
+                }
+                else
+                {
+                    NowPoint = MoveToLocation;
+                }
+                #endregion
+                NeedMove.Location = NowPoint;
+                Thread.Sleep(10);
+                NeedMove.BackColor = Color.Transparent;
+            }
+        }
+
+        private void Form_Closing(object sender, FormClosingEventArgs e)
+        {
+            StartMoveThread.Abort();
         }
     }
 }

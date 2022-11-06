@@ -126,10 +126,10 @@ namespace TheWorstEngine.UIFunction
                 Rectangle pictureBox1ScreenBounds = AtItem.Bounds;
                 Rectangle pictureBox2ScreenBounds = BeAtItem.Bounds;
                 bool intersected = pictureBox2ScreenBounds.IntersectsWith(pictureBox1ScreenBounds);
-                // 同步血量
-                PlayerNowHealth = int.Parse(NowHealth.Text);
                 if (intersected)
                 {
+                    // 同步血量
+                    PlayerNowHealth = int.Parse(NowHealth.Text);
                     // 血量减少
                     PlayerNowHealth -= ReduceHeal;
                     if (PlayerNowHealth <= 0)
