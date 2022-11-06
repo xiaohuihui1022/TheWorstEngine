@@ -36,14 +36,16 @@
             this.nowhealth = new System.Windows.Forms.Label();
             this.dead = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.sans)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Line)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // sans
             // 
-            this.sans.Location = new System.Drawing.Point(275, 120);
+            this.sans.Location = new System.Drawing.Point(275, 20);
             this.sans.Name = "sans";
             this.sans.Size = new System.Drawing.Size(261, 191);
             this.sans.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -53,7 +55,7 @@
             // heart
             // 
             this.heart.BackColor = System.Drawing.Color.Transparent;
-            this.heart.Location = new System.Drawing.Point(387, 386);
+            this.heart.Location = new System.Drawing.Point(489, 270);
             this.heart.Name = "heart";
             this.heart.Size = new System.Drawing.Size(16, 16);
             this.heart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -63,7 +65,7 @@
             // Line
             // 
             this.Line.Image = ((System.Drawing.Image)(resources.GetObject("Line.Image")));
-            this.Line.Location = new System.Drawing.Point(275, 239);
+            this.Line.Location = new System.Drawing.Point(275, 230);
             this.Line.Name = "Line";
             this.Line.Size = new System.Drawing.Size(261, 217);
             this.Line.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -74,7 +76,7 @@
             // 
             this.HealthCount.AutoSize = true;
             this.HealthCount.ForeColor = System.Drawing.Color.Red;
-            this.HealthCount.Location = new System.Drawing.Point(310, 479);
+            this.HealthCount.Location = new System.Drawing.Point(310, 497);
             this.HealthCount.Name = "HealthCount";
             this.HealthCount.Size = new System.Drawing.Size(78, 22);
             this.HealthCount.TabIndex = 5;
@@ -97,7 +99,7 @@
             this.dead.AutoSize = true;
             this.dead.Font = new System.Drawing.Font("微软雅黑", 42F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dead.ForeColor = System.Drawing.Color.Black;
-            this.dead.Location = new System.Drawing.Point(160, 261);
+            this.dead.Location = new System.Drawing.Point(151, 77);
             this.dead.Name = "dead";
             this.dead.Size = new System.Drawing.Size(519, 150);
             this.dead.TabIndex = 7;
@@ -106,10 +108,20 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Red;
-            this.panel1.Location = new System.Drawing.Point(155, 476);
+            this.panel1.Location = new System.Drawing.Point(155, 497);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(149, 25);
             this.panel1.TabIndex = 9;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(275, 230);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(62, 76);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
             // 
             // Form2
             // 
@@ -117,10 +129,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(784, 562);
-            this.Controls.Add(this.sans);
-            this.Controls.Add(this.HealthCount);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.heart);
             this.Controls.Add(this.Line);
+            this.Controls.Add(this.sans);
+            this.Controls.Add(this.HealthCount);
             this.Controls.Add(this.nowhealth);
             this.Controls.Add(this.dead);
             this.Controls.Add(this.panel1);
@@ -132,6 +145,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.sans)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Line)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,5 +160,6 @@
         private System.Windows.Forms.Label nowhealth;
         private System.Windows.Forms.Label dead;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

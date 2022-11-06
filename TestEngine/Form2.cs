@@ -1,5 +1,6 @@
 ﻿using TheWorstEngine.AnimFunction;
 using TheWorstEngine.UIFunction;
+using TheWorstEngine.AttackCombo;
 using System.Windows.Forms;
 using System.Threading;
 using System;
@@ -16,6 +17,7 @@ namespace TestEngine
         TweSound EndingSound = new TweSound();
         ConsoleGS console;
         UTProgress utp = new UTProgress();
+        TweAttackCombo enemy = new TweAttackCombo();
         private Thread Ending;
         public Form2(ConsoleGS con)
         {
@@ -29,6 +31,9 @@ namespace TestEngine
             ProgressInit();
             mega.Load(@".\sound\yijibattle.ogg");
             mega.SoundPlay();
+            enemy.Load(this, pictureBox1, Line, HealthCount, nowhealth);
+            enemy.AutoAttackCheckSet(heart, 5, 500, @".\sound\uts\hurt.wav");
+            enemy.EnemyRandomMove();
         }
         private void HeartInit()
         {
@@ -48,7 +53,7 @@ namespace TestEngine
             sans1.SetAnim(FS, 5);
              */
             sans1.Load(this, sans);
-            sans1.SetImage(@".\img\Froggit.png");
+            // sans1.SetImage(@".\img\Froggit.png");
         }
         private void ProgressInit()
         {
@@ -102,10 +107,12 @@ namespace TestEngine
                 heart.Visible = false;
                 Line.Visible = false;
                 HealthCount.Visible = false;
+                panel1.Visible = false;
                 EndingSound.Load(@".\sound\uts\afterdead.wav");
                 EndingSound.SoundPlay();
                 // TODO
                 Ending.Abort();
+                this.Close();
             }
         }
     }
