@@ -2,5 +2,6 @@
 # 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
 ################################################################################
 
-/.vs/TheWorstEngine/v15/Server/sqlite3
-/.vs/TheWorstEngine/v15
+/.vs/
+/TestEngine/obj/
+/TheWorstEngine/obj/
