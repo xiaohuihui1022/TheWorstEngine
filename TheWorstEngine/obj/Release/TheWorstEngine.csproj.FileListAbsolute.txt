@@ -1,9 +1,0 @@
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\bin\Release\TheWorstEngine.dll.config
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\bin\Release\TheWorstEngine.dll
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\bin\Release\TheWorstEngine.pdb
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Release\TheWorstEngine.Main.resources
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Release\TheWorstEngine.Properties.Resources.resources
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Release\TheWorstEngine.csproj.GenerateResource.cache
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Release\TheWorstEngine.csproj.CoreCompileInputs.cache
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Release\TheWorstEngine.dll
-D:\C#类编程文件\带工程\TWE\TheWorstEngine\TheWorstEngine\obj\Release\TheWorstEngine.pdb
