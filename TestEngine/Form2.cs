@@ -32,7 +32,7 @@ namespace TestEngine
             mega.Load(@".\sound\yijibattle.ogg");
             mega.SoundPlay();
             enemy.Load(this, @".\img\gb\GB1.png", Line, 
-            HealthCount, panel2, nowhealth, 120, 120, 520, 431);
+            HealthCount, panel2, nowhealth, 50, 50, 10, 10);
             enemy.SetGlobalHurtSound(@".\sound\uts\hurt.wav");
             enemy.AutoAttackCheckSet(heart, 5, 500);
             enemy.EnemyRandomMove();
@@ -48,12 +48,10 @@ namespace TestEngine
         }
         private void SansInit()
         {
-            /*
              string[] FS = { ".\\img\\sans1.png", ".\\img\\sans2.png",
                   ".\\img\\sans3.png", ".\\img\\sans4.png",
             ".\\img\\sans3.png", ".\\img\\sans2.png", ".\\img\\sans1.png"};
             sans1.SetAnim(FS, 5);
-             */
             sans1.Load(this, sans);
             // sans1.SetImage(@".\img\Froggit.png");
         }

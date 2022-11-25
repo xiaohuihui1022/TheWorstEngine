@@ -142,7 +142,6 @@ namespace TheWorstEngine.UIFunction
                     NowHealth.Text = PlayerNowHealth.ToString();
                     if (PlayerNowHealth == 0)
                     {
-                        AttackCheckAbort();
                         return;
                     }
                     if (isHurtSound)

@@ -56,13 +56,13 @@ namespace TheWorstEngine.AttackCombo
             // SingleImg = img;
             panelBox = imgpanel;
             AttackItem = new PictureBox();
-            AttackItem.SizeMode = PictureBoxSizeMode.CenterImage;
+            AttackItem.SizeMode = PictureBoxSizeMode.StretchImage;
             AttackItem.Width = Width;
             AttackItem.Height = Height;
             AttackItem.Image = Image.FromFile(img);
             AttackItem.Location = new Point(x, y);
             imgpanel.Controls.Add(AttackItem);
-            AttackItem.BringToFront();
+            square.SendToBack();
             AtCheck.Load(fo, HealthCountL, RealHealht);
         }
 
@@ -117,8 +117,8 @@ namespace TheWorstEngine.AttackCombo
             form.FormClosing += new FormClosingEventHandler(Form_Closing);
             while (true)
             {
-                int rx = r.Next(0, panelBox.Location.X);
-                int ry = r.Next(0, panelBox.Location.Y);
+                int rx = r.Next(0, panelBox.Size.Width - 5);
+                int ry = r.Next(0, panelBox.Size.Height - 5);
                 MoveTo(rx, ry);
                 // 是否移动完成
                 while (true)

@@ -39,11 +39,13 @@
             this.Line = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.sans)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heart)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Line)).BeginInit();
             this.SuspendLayout();
             // 
             // sans
             // 
+            this.sans.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.sans.Location = new System.Drawing.Point(275, 20);
             this.sans.Name = "sans";
             this.sans.Size = new System.Drawing.Size(261, 191);
@@ -55,7 +57,7 @@
             // 
             this.heart.BackColor = System.Drawing.Color.Transparent;
             this.heart.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("heart.BackgroundImage")));
-            this.heart.Location = new System.Drawing.Point(229, 321);
+            this.heart.Location = new System.Drawing.Point(123, 106);
             this.heart.Name = "heart";
             this.heart.Size = new System.Drawing.Size(16, 16);
             this.heart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -105,20 +107,23 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.Black;
-            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
+            this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Controls.Add(this.heart);
+            this.panel2.Controls.Add(this.Line);
             this.panel2.ForeColor = System.Drawing.Color.Black;
-            this.panel2.Location = new System.Drawing.Point(275, 235);
+            this.panel2.Location = new System.Drawing.Point(268, 238);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(261, 239);
+            this.panel2.Size = new System.Drawing.Size(278, 256);
             this.panel2.TabIndex = 10;
             // 
             // Line
             // 
-            this.Line.Location = new System.Drawing.Point(275, 235);
+            this.Line.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Line.BackgroundImage")));
+            this.Line.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Line.Location = new System.Drawing.Point(0, 0);
             this.Line.Name = "Line";
-            this.Line.Size = new System.Drawing.Size(261, 227);
+            this.Line.Size = new System.Drawing.Size(259, 217);
             this.Line.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Line.TabIndex = 2;
             this.Line.TabStop = false;
@@ -129,9 +134,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(784, 562);
-            this.Controls.Add(this.heart);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.Line);
             this.Controls.Add(this.sans);
             this.Controls.Add(this.HealthCount);
             this.Controls.Add(this.nowhealth);
@@ -140,10 +143,11 @@
             this.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "Form2";
-            this.Text = "Form2";
+            this.Text = "UndertaleSelf";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.sans)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heart)).EndInit();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Line)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

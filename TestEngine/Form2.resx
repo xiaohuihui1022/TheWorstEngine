@@ -121,12 +121,12 @@
   <data name="heart.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADr4AAA6+AepCscAAAABVSURBVDhP7YxJDsAgDAPz/0+zyW6RIUpUwa0j5kDi2Ehp
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAABVSURBVDhP7YxJDsAgDAPz/0+zyW6RIUpUwa0j5kDi2Ehp
         r4uvyzbH4SxWD7rvugs6Ag2dz94tyPgXnCgguojE2YsGInG2okEVMR89UBGL+XxIcgVmFRe7cpwsNNZi
         AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="panel2.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Line.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAA8IAAAJYCAYAAACpYV88AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAACxEAAAsRAX9kX5EAABS0SURBVHhe7dexih1BEATB9/8/fUJnndpRyisxkRCwRtFr
