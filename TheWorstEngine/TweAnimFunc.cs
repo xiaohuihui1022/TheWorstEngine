@@ -621,49 +621,41 @@ namespace TheWorstEngine.AnimFunction
             if (fx == nx && fy > ny)
             {
                 isNorth = true;
-                Console.WriteLine("正北方");
             }
             // 南方
             else if (fx == nx && fy < ny)
             {
                 isSouth = true;
-                Console.WriteLine("正南方");
             }
             // 西方
             else if (fx > nx && fy == ny)
             {
                 isEast = true;
-                Console.WriteLine("正西方");
             }
             // 东方
             else if (fx < nx && fy == ny)
             {
                 isWest = true;
-                Console.WriteLine("正东方");
             }
             // 北偏东
             else if (fx < nx && fy > ny)
             {
                 isNaE = true;
-                Console.WriteLine("北偏东方");
             }
             // 北偏西
             else if (fx > nx && fy > ny)
             {
                 isNaW = true;
-                Console.WriteLine("北偏西方");
             }
             // 南偏东
             else if (fx < nx && fy < ny)
             {
                 isSaE = true;
-                Console.WriteLine("南偏东方");
             }
             // 南偏西
             else if (fx > nx && fy < ny)
             {
                 isSaW = true;
-                Console.WriteLine("南偏西方");
             }
             #endregion
 

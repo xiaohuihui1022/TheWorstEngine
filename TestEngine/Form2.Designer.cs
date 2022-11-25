@@ -31,16 +31,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.sans = new System.Windows.Forms.PictureBox();
             this.heart = new System.Windows.Forms.PictureBox();
-            this.Line = new System.Windows.Forms.PictureBox();
             this.HealthCount = new System.Windows.Forms.Label();
             this.nowhealth = new System.Windows.Forms.Label();
             this.dead = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.Line = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.sans)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Line)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // sans
@@ -55,22 +54,13 @@
             // heart
             // 
             this.heart.BackColor = System.Drawing.Color.Transparent;
-            this.heart.Location = new System.Drawing.Point(489, 270);
+            this.heart.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("heart.BackgroundImage")));
+            this.heart.Location = new System.Drawing.Point(229, 321);
             this.heart.Name = "heart";
             this.heart.Size = new System.Drawing.Size(16, 16);
             this.heart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.heart.TabIndex = 1;
             this.heart.TabStop = false;
-            // 
-            // Line
-            // 
-            this.Line.Image = ((System.Drawing.Image)(resources.GetObject("Line.Image")));
-            this.Line.Location = new System.Drawing.Point(275, 230);
-            this.Line.Name = "Line";
-            this.Line.Size = new System.Drawing.Size(261, 217);
-            this.Line.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.Line.TabIndex = 3;
-            this.Line.TabStop = false;
             // 
             // HealthCount
             // 
@@ -99,7 +89,7 @@
             this.dead.AutoSize = true;
             this.dead.Font = new System.Drawing.Font("微软雅黑", 42F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dead.ForeColor = System.Drawing.Color.Black;
-            this.dead.Location = new System.Drawing.Point(151, 77);
+            this.dead.Location = new System.Drawing.Point(152, 64);
             this.dead.Name = "dead";
             this.dead.Size = new System.Drawing.Size(519, 150);
             this.dead.TabIndex = 7;
@@ -113,15 +103,25 @@
             this.panel1.Size = new System.Drawing.Size(149, 25);
             this.panel1.TabIndex = 9;
             // 
-            // pictureBox1
+            // panel2
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(275, 230);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(62, 76);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
+            this.panel2.BackColor = System.Drawing.Color.Black;
+            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.ForeColor = System.Drawing.Color.Black;
+            this.panel2.Location = new System.Drawing.Point(275, 235);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(261, 239);
+            this.panel2.TabIndex = 10;
+            // 
+            // Line
+            // 
+            this.Line.Location = new System.Drawing.Point(275, 235);
+            this.Line.Name = "Line";
+            this.Line.Size = new System.Drawing.Size(261, 227);
+            this.Line.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Line.TabIndex = 2;
+            this.Line.TabStop = false;
             // 
             // Form2
             // 
@@ -129,8 +129,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(784, 562);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.heart);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.Line);
             this.Controls.Add(this.sans);
             this.Controls.Add(this.HealthCount);
@@ -145,7 +145,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.sans)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Line)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,11 +154,11 @@
 
         private System.Windows.Forms.PictureBox sans;
         private System.Windows.Forms.PictureBox heart;
-        private System.Windows.Forms.PictureBox Line;
         private System.Windows.Forms.Label HealthCount;
         private System.Windows.Forms.Label nowhealth;
         private System.Windows.Forms.Label dead;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.PictureBox Line;
     }
 }

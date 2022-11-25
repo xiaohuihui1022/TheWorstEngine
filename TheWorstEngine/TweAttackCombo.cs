@@ -13,9 +13,6 @@ namespace TheWorstEngine.AttackCombo
         // 当前窗口
         private Form form;
 
-        // 单个图片
-        private string SingleImg;
-
         // 攻击的东西
         private PictureBox AttackItem;
 
@@ -23,15 +20,12 @@ namespace TheWorstEngine.AttackCombo
         private PictureBox BeAtItem;
 
         // 判定框的pb
-        private PictureBox Line;
+        private Panel panelBox;
 
         private Thread EnemyMoveThread;
 
         // 被攻击后减少的血量
         private int ReduceHeal = 5;
-
-        // 是否有被攻击后的无敌时间
-        private bool isInvicinbleTime = false;
 
         // 无敌时间长短(秒)
         private int InvicibleTime;
@@ -49,36 +43,27 @@ namespace TheWorstEngine.AttackCombo
         /// <param name="img">单个图片路径</param>
         /// <param name="square">活动框的picturebox</param>
         /// <param name="HealthCountL">显示血量的label</param>
+        /// <param name="imgpanel">图床所用的panel</param>
         /// <param name="RealHealht">给程序看的healthlabel</param>
-        public void Load(Form fo, PictureBox img, PictureBox square,Label HealthCountL,
-            Label RealHealht)
+        /// <param name="Height">图片的高</param>
+        /// <param name="Width">图片的宽</param>
+        /// <param name="x">图片初始位置的x</param>
+        /// <param name="y">图片初始位置的y</param>
+        public void Load(Form fo, string img, PictureBox square,Label HealthCountL, Panel imgpanel,
+            Label RealHealht, int Width, int Height, int x, int y)
         {
             form = fo;
             // SingleImg = img;
-            Line = square;
-            /*
+            panelBox = imgpanel;
             AttackItem = new PictureBox();
             AttackItem.SizeMode = PictureBoxSizeMode.CenterImage;
             AttackItem.Width = Width;
             AttackItem.Height = Height;
             AttackItem.Image = Image.FromFile(img);
             AttackItem.Location = new Point(x, y);
-            form.Controls.Add(AttackItem);
-            */
-            AttackItem = img;
+            imgpanel.Controls.Add(AttackItem);
+            AttackItem.BringToFront();
             AtCheck.Load(fo, HealthCountL, RealHealht);
-        }
-
-        /// <summary>
-        /// 自动给每个img挂上AttackCheck(不带无敌时间)
-        /// </summary>
-        /// <param name="BeAttackItem">被攻击者(如决心)</param>
-        /// <param name="ReduceHealth">被攻击所减少的血量</param>
-        public void AutoAttackCheckSet(PictureBox BeAttackItem, int ReduceHealth)
-        {
-            BeAtItem = BeAttackItem;
-            ReduceHeal = ReduceHealth;
-            AtCheck.AttackCheck(AttackItem, BeAtItem, ReduceHeal);
         }
 
         /// <summary>
@@ -88,17 +73,24 @@ namespace TheWorstEngine.AttackCombo
         /// <param name="ReduceHealth">被攻击所减少的血量</param>
         /// <param name="Invicinble">无敌时间长短(毫秒)</param>
         public void AutoAttackCheckSet(PictureBox BeAttackItem,
-             int ReduceHealth, int Invicinble, string HurtSound)
+             int ReduceHealth, int Invicinble)
         {
             InvicibleTime = Invicinble;
-            AutoAttackCheckSet(BeAttackItem, ReduceHeal);
-            isInvicinbleTime = true;
+            BeAtItem = BeAttackItem;
+            ReduceHeal = ReduceHealth;
             AtCheck.AttackCheck(AttackItem, BeAtItem, ReduceHeal, InvicibleTime);
-            AtCheck.SetHurtSound(HurtSound);
+            
         }
 
         /// <summary>
+        /// 设置全局hurtsound（一个项目只用设置一次，全局应用）
+        /// </summary>
+        /// <param name="Hurtsound">受伤音效位置</param>
+        public void SetGlobalHurtSound(string Hurtsound) => AtCheck.SetHurtSound(Hurtsound);
+
+        /// <summary>
         /// 移动到的坐标
+        /// 建议向着四面八方移动，其他角度类型的移动我把握不住
         /// </summary>
         /// <param name="x">X坐标</param>
         /// <param name="y">Y坐标</param>
@@ -125,9 +117,8 @@ namespace TheWorstEngine.AttackCombo
             form.FormClosing += new FormClosingEventHandler(Form_Closing);
             while (true)
             {
-                int rx = r.Next(275, 498);
-                int ry = r.Next(230, 404);
-                Console.WriteLine("rx:" + rx + " ry" + ry);
+                int rx = r.Next(0, panelBox.Location.X);
+                int ry = r.Next(0, panelBox.Location.Y);
                 MoveTo(rx, ry);
                 // 是否移动完成
                 while (true)
@@ -138,22 +129,22 @@ namespace TheWorstEngine.AttackCombo
                         animationLib.Stop();
                         break;
                     }
-                    else if (AttackItem.Location.X >= 498)
+                    else if (AttackItem.Location.X >= panelBox.Location.X)
                     {
                         animationLib.Stop();
                         break;
                     }
-                    else if (AttackItem.Location.Y >= 404)
+                    else if (AttackItem.Location.Y >= panelBox.Location.Y)
                     {
                         animationLib.Stop();
                         break;
                     }
-                    else if (AttackItem.Location.X <= 275)
+                    else if (AttackItem.Location.X <= 0)
                     {
                         animationLib.Stop();
                         break;
                     }
-                    else if (AttackItem.Location.Y <= 230)
+                    else if (AttackItem.Location.Y <= 0)
                     {
                         animationLib.Stop();
                         break;

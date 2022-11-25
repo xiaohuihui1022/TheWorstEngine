@@ -31,15 +31,17 @@ namespace TestEngine
             ProgressInit();
             mega.Load(@".\sound\yijibattle.ogg");
             mega.SoundPlay();
-            enemy.Load(this, pictureBox1, Line, HealthCount, nowhealth);
-            enemy.AutoAttackCheckSet(heart, 5, 500, @".\sound\uts\hurt.wav");
+            enemy.Load(this, @".\img\gb\GB1.png", Line, 
+            HealthCount, panel2, nowhealth, 120, 120, 520, 431);
+            enemy.SetGlobalHurtSound(@".\sound\uts\hurt.wav");
+            enemy.AutoAttackCheckSet(heart, 5, 500);
             enemy.EnemyRandomMove();
         }
         private void HeartInit()
         {
             Heart.Load(this, heart);
             Heart.SetResolution(new Size(800, 600));
-            Heart.SetImage(@".\img\red.png");
+            // Heart.SetImage(@".\img\red.png");
             Heart.Encircle(Line, heart, 4, 19);
             Heart.KeySet(Keys.Up, Keys.Down, Keys.Left, Keys.Right);
             Heart.CanMove(true);
@@ -61,7 +63,7 @@ namespace TestEngine
             utp.Dock = DockStyle.Fill;
             utp.Minimum = 0;
             utp.Maximum = 100;
-            /* 防止闪烁现象 */
+            // 防止闪烁现象 
             Label l = new Label();
             l.Parent = utp;
             l.BackColor = Color.Transparent;
@@ -80,9 +82,7 @@ namespace TestEngine
         }
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
-            sans1.isClosed = true;
-            mega.SoundStop();
-            Ending.Abort();
+            System.Environment.Exit(0);
         }
         private void EndThread()
         {
@@ -90,7 +90,7 @@ namespace TestEngine
             {
                 // 锁血
                 // nowhealth.Text = console.playerHealth;
-                Line.Size = new Size(console.LineX, console.LineY);
+                panel2.Size = new Size(console.LineX, console.LineY);
                 Thread.Sleep(50);
             }
         }

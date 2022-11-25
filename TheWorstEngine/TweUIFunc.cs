@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using TheWorstEngine.Developer;
 using IrrKlang;
 
 namespace TheWorstEngine.UIFunction
@@ -19,6 +20,8 @@ namespace TheWorstEngine.UIFunction
         private int PlayerInitHealth = 100;
         // 玩家当前血量
         private int PlayerNowHealth = 100;
+        // 获取值
+        public ValueGet valueget = new ValueGet();
 
         /* Attack */
 
@@ -40,7 +43,6 @@ namespace TheWorstEngine.UIFunction
         /* sound */
         private readonly ISoundEngine SoundEngine = new ISoundEngine();
         private bool isHurtSound = false;
-        private string HurtSound;
 
         /// <summary>
         /// 初始化加载函数
@@ -104,7 +106,7 @@ namespace TheWorstEngine.UIFunction
         /// <param name="hurt">被攻击音效路径</param>
         public void SetHurtSound(string hurt)
         {
-            HurtSound = hurt;
+            valueget.GlobalHurtSound = hurt;
             isHurtSound = true;
         }
         // 关闭窗口自动终止线程
@@ -146,7 +148,7 @@ namespace TheWorstEngine.UIFunction
                     if (isHurtSound)
                     {
                         // 播放被攻击音效
-                        SoundEngine.Play2D(HurtSound);
+                        SoundEngine.Play2D(valueget.GlobalHurtSound);
                     }
                     // 是否无敌时间
                     if (isInvicinbleTime)
