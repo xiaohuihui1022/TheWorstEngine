@@ -156,9 +156,7 @@ namespace TheWorstEngine.UIFunction
                     }
                 }
                 Thread.Sleep(10);
-                
-            }
-            
+			}
         }
     }
 }

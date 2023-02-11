@@ -360,48 +360,36 @@ namespace TheWorstEngine.AnimFunction
         {
             while (true)
             {
+                form.KeyDown -= new KeyEventHandler(Hook_KeyDown);
+                form.KeyUp -= new KeyEventHandler(Hook_KeyUp);
                 if (BeEncirclement.Location.X <= Encirclement.Location.X + NandW)
                 {
-                    form.KeyDown -= new KeyEventHandler(Hook_KeyDown);
-                    form.KeyUp -= new KeyEventHandler(Hook_KeyUp);
                     isLeftKeyDown = false;
                     BeEncirclement.Location = new Point(Encirclement.Location.X + NandW
                         , BeEncirclement.Location.Y);
-                    form.KeyDown += new KeyEventHandler(Hook_KeyDown);
-                    form.KeyUp += new KeyEventHandler(Hook_KeyUp);
                 }
                 if (BeEncirclement.Location.Y <= Encirclement.Location.Y + NandW)
                 {
-                    form.KeyDown -= new KeyEventHandler(Hook_KeyDown);
-                    form.KeyUp -= new KeyEventHandler(Hook_KeyUp);
                     isUpKeyDown = false;
                     BeEncirclement.Location = new Point(BeEncirclement.Location.X
                         , Encirclement.Location.Y + NandW);
-                    form.KeyDown += new KeyEventHandler(Hook_KeyDown);
-                    form.KeyUp += new KeyEventHandler(Hook_KeyUp);
                 }
                 if (BeEncirclement.Location.X >= Encirclement.Location.X 
                     + Encirclement.Width - SandE)
                 {
-                    form.KeyDown -= new KeyEventHandler(Hook_KeyDown);
-                    form.KeyUp -= new KeyEventHandler(Hook_KeyUp);
                     isRightKeyDown = false;
                     BeEncirclement.Location = new Point(Encirclement.Location.X
                        + Encirclement.Width - SandE , BeEncirclement.Location.Y);
-                    form.KeyDown += new KeyEventHandler(Hook_KeyDown);
-                    form.KeyUp += new KeyEventHandler(Hook_KeyUp);
                 }
                 if (BeEncirclement.Location.Y >= Encirclement.Location.Y
                     + Encirclement.Height - SandE)
                 {
-                    form.KeyDown -= new KeyEventHandler(Hook_KeyDown);
-                    form.KeyUp -= new KeyEventHandler(Hook_KeyUp);
                     isDownKeyDown = false;
                     BeEncirclement.Location = new Point(BeEncirclement.Location.X
                         ,Encirclement.Location.Y + Encirclement.Height - SandE);
-                    form.KeyDown += new KeyEventHandler(Hook_KeyDown);
-                    form.KeyUp += new KeyEventHandler(Hook_KeyUp);
                 }
+                form.KeyDown += new KeyEventHandler(Hook_KeyDown);
+                form.KeyUp += new KeyEventHandler(Hook_KeyUp);
                 Thread.Sleep(1);
             }
         }

@@ -20,7 +20,7 @@ namespace TheWorstEngine.AttackCombo
         private PictureBox BeAtItem;
 
         // 判定框的pb
-        private Panel panelBox;
+        private PictureBox linebox;
 
         private Thread EnemyMoveThread;
 
@@ -54,7 +54,7 @@ namespace TheWorstEngine.AttackCombo
         {
             form = fo;
             // SingleImg = img;
-            panelBox = imgpanel;
+            linebox = square;
             AttackItem = new PictureBox();
             AttackItem.SizeMode = PictureBoxSizeMode.StretchImage;
             AttackItem.Width = Width;
@@ -117,8 +117,8 @@ namespace TheWorstEngine.AttackCombo
             form.FormClosing += new FormClosingEventHandler(Form_Closing);
             while (true)
             {
-                int rx = r.Next(0, panelBox.Size.Width - 5);
-                int ry = r.Next(0, panelBox.Size.Height - 5);
+                int rx = r.Next(0, linebox.Size.Width - 5);
+                int ry = r.Next(0, linebox.Size.Height - 5);
                 MoveTo(rx, ry);
                 // 是否移动完成
                 while (true)
@@ -129,12 +129,12 @@ namespace TheWorstEngine.AttackCombo
                         animationLib.Stop();
                         break;
                     }
-                    else if (AttackItem.Location.X >= panelBox.Location.X)
+                    else if (AttackItem.Location.X >= linebox.Location.X)
                     {
                         animationLib.Stop();
                         break;
                     }
-                    else if (AttackItem.Location.Y >= panelBox.Location.Y)
+                    else if (AttackItem.Location.Y >= linebox.Location.Y)
                     {
                         animationLib.Stop();
                         break;

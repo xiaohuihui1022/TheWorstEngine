@@ -31,7 +31,7 @@ namespace TestEngine
             ProgressInit();
             mega.Load(@".\sound\yijibattle.ogg");
             mega.SoundPlay();
-            enemy.Load(this, @".\img\gb\GB1.png", Line, 
+            enemy.Load(this, @".\img\gb\GB1.png", Line, // 换行
             HealthCount, panel2, nowhealth, 50, 50, 10, 10);
             enemy.SetGlobalHurtSound(@".\sound\uts\hurt.wav");
             enemy.AutoAttackCheckSet(heart, 5, 500);
