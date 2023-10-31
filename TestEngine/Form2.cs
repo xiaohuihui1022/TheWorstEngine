@@ -34,8 +34,8 @@ namespace TestEngine
             enemy.Load(this, @".\img\gb\GB1.png", Line, // 换行
             HealthCount, panel2, nowhealth, 50, 50, 10, 10);
             enemy.SetGlobalHurtSound(@".\sound\uts\hurt.wav");
-            enemy.AutoAttackCheckSet(heart, 5, 500);
-            enemy.EnemyRandomMove();
+            enemy.AutoAttackCheckSet(heart, 5, 1);
+            // enemy.EnemyRandomMove();
         }
         private void HeartInit()
         {
@@ -75,13 +75,14 @@ namespace TestEngine
             Health.Load(this, HealthCount, nowhealth);
             Health.AttackCheck(sans, heart, 1, 100); // 1！ 5！(前者为攻击锁掉血量，后者为无敌时间(ms))
             Health.SetHurtSound(@".\sound\uts\hurt.wav");
-            Ending = new Thread(EndThread);
-            Ending.Start();
+            // Ending = new Thread(EndThread);
+            // Ending.Start();
         }
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
-            System.Environment.Exit(0);
+            Environment.Exit(0);
         }
+        /*
         private void EndThread()
         {
             while (true)
@@ -91,7 +92,7 @@ namespace TestEngine
                 panel2.Size = new Size(console.LineX, console.LineY);
                 Thread.Sleep(50);
             }
-        }
+        }*/
 
         private void nowhealth_TextChanged(object sender, EventArgs e)
         {
@@ -99,8 +100,9 @@ namespace TestEngine
             utp.Width = utp.Width * (utp.Value / utp.Maximum);
             if (nowhealth.Text == "0")
             {
-                mega.SoundStop();
+                mega.SoundPaused();
                 dead.BackColor = Color.Red;
+                dead.Visible = true;
                 sans.Visible = false;
                 heart.Visible = false;
                 Line.Visible = false;
@@ -108,9 +110,31 @@ namespace TestEngine
                 panel1.Visible = false;
                 EndingSound.Load(@".\sound\uts\afterdead.wav");
                 EndingSound.SoundPlay();
+                this.KeyDown += OnKeyDown;
                 // TODO
-                Ending.Abort();
-                this.Close();
+                // Ending.Abort();
+            }
+        }
+        // Restart Game
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.X)
+            {
+                EndingSound.SoundStop();
+                utp.Value = 100;
+                nowhealth.Text = "100";
+                SansInit();
+                HeartInit();
+                HealthInit();
+                ProgressInit();
+                mega.SoundDispaused();
+                sans.Visible = true;
+                heart.Visible = true;
+                Line.Visible = true;
+                HealthCount.Visible = true;
+                panel1.Visible = true;
+                dead.Visible = false;
+                enemy.AutoAttackCheckSet(heart, 5, 1);
             }
         }
     }
