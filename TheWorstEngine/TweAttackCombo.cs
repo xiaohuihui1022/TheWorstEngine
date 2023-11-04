@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using TheWorstEngine.AnimFunction;
 using TheWorstEngine.UIFunction;
 using System.Threading;
+using TheWorstEngine.Developer;
 
 namespace TheWorstEngine.AttackCombo
 {
@@ -44,13 +45,13 @@ namespace TheWorstEngine.AttackCombo
         /// <param name="square">活动框的picturebox</param>
         /// <param name="HealthCountL">显示血量的label</param>
         /// <param name="imgpanel">图床所用的panel</param>
-        /// <param name="RealHealht">给程序看的healthlabel</param>
+        /// <param name="HealthGetSet">给程序看的healthlabel</param>
         /// <param name="Height">图片的高</param>
         /// <param name="Width">图片的宽</param>
         /// <param name="x">图片初始位置的x</param>
         /// <param name="y">图片初始位置的y</param>
         public void Load(Form fo, string img, PictureBox square,Label HealthCountL, Panel imgpanel,
-            Label RealHealht, int Width, int Height, int x, int y)
+            ValueGet Valueget, int Width, int Height, int x, int y)
         {
             form = fo;
             // SingleImg = img;
@@ -63,7 +64,7 @@ namespace TheWorstEngine.AttackCombo
             AttackItem.Location = new Point(x, y);
             imgpanel.Controls.Add(AttackItem);
             square.SendToBack();
-            AtCheck.Load(fo, HealthCountL, RealHealht);
+            AtCheck.Load(fo, HealthCountL, Valueget);
         }
 
         /// <summary>

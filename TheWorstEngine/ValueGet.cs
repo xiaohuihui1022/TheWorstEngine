@@ -8,6 +8,9 @@ namespace TheWorstEngine.Developer
 {
     public class ValueGet
     {
-        public string GlobalHurtSound{ get; set; }
+        // 全局受伤音效
+        public string GlobalHurtSound { get; set; }
+        // 玩家血量
+        public int PlayerHealth { get; set; } = 100;
     }
 }

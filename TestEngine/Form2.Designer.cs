@@ -32,7 +32,6 @@
             this.sans = new System.Windows.Forms.PictureBox();
             this.heart = new System.Windows.Forms.PictureBox();
             this.HealthCount = new System.Windows.Forms.Label();
-            this.nowhealth = new System.Windows.Forms.Label();
             this.dead = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -70,21 +69,10 @@
             this.HealthCount.ForeColor = System.Drawing.Color.Red;
             this.HealthCount.Location = new System.Drawing.Point(310, 497);
             this.HealthCount.Name = "HealthCount";
-            this.HealthCount.Size = new System.Drawing.Size(78, 22);
+            this.HealthCount.Size = new System.Drawing.Size(129, 31);
             this.HealthCount.TabIndex = 5;
-            this.HealthCount.Text = "100/100";
-            // 
-            // nowhealth
-            // 
-            this.nowhealth.AutoSize = true;
-            this.nowhealth.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.nowhealth.Location = new System.Drawing.Point(12, 531);
-            this.nowhealth.Name = "nowhealth";
-            this.nowhealth.Size = new System.Drawing.Size(40, 22);
-            this.nowhealth.TabIndex = 6;
-            this.nowhealth.Text = "100";
-            this.nowhealth.Visible = false;
-            this.nowhealth.TextChanged += new System.EventHandler(this.nowhealth_TextChanged);
+            this.HealthCount.Text = "100 / 100";
+            this.HealthCount.TextChanged += new System.EventHandler(this.HealthCount_TextChanged);
             // 
             // dead
             // 
@@ -93,9 +81,9 @@
             this.dead.ForeColor = System.Drawing.Color.Black;
             this.dead.Location = new System.Drawing.Point(152, 64);
             this.dead.Name = "dead";
-            this.dead.Size = new System.Drawing.Size(519, 150);
+            this.dead.Size = new System.Drawing.Size(832, 112);
             this.dead.TabIndex = 7;
-            this.dead.Text = "U are DEAD!\r\npress X to restart\r\n";
+            this.dead.Text = "请按下 \"X\" 重启游戏";
             // 
             // panel1
             // 
@@ -130,14 +118,13 @@
             // 
             // Form2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.sans);
             this.Controls.Add(this.HealthCount);
-            this.Controls.Add(this.nowhealth);
             this.Controls.Add(this.dead);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -159,7 +146,6 @@
         private System.Windows.Forms.PictureBox sans;
         private System.Windows.Forms.PictureBox heart;
         private System.Windows.Forms.Label HealthCount;
-        private System.Windows.Forms.Label nowhealth;
         private System.Windows.Forms.Label dead;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;

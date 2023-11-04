@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System;
 using System.Drawing;
+using TheWorstEngine.Developer;
 
 namespace TestEngine
 {
@@ -15,16 +16,18 @@ namespace TestEngine
         TweSound mega = new TweSound();
         TweText Health = new TweText();
         TweSound EndingSound = new TweSound();
-        ConsoleGS console;
         UTProgress utp = new UTProgress();
         TweAttackCombo enemy = new TweAttackCombo();
+
+        // 处理数据
+        ValueGet Valueget = new ValueGet();
+
         private Thread Ending;
-        public Form2(ConsoleGS con)
+        public Form2()
         {
             utp.Value = 100;
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
-            console = con;
             SansInit();
             HeartInit();
             HealthInit();
@@ -32,9 +35,11 @@ namespace TestEngine
             mega.Load(@".\sound\yijibattle.ogg");
             mega.SoundPlay();
             enemy.Load(this, @".\img\gb\GB1.png", Line, // 换行
-            HealthCount, panel2, nowhealth, 50, 50, 10, 10);
+            HealthCount, panel2, Valueget, 50, 50, 10, 10);
             enemy.SetGlobalHurtSound(@".\sound\uts\hurt.wav");
             enemy.AutoAttackCheckSet(heart, 5, 1);
+            // CheckHealthThread = new Thread(CheckHealth);
+            // CheckHealthThread.Start();
             // enemy.EnemyRandomMove();
         }
         private void HeartInit()
@@ -72,48 +77,13 @@ namespace TestEngine
         }
         private void HealthInit()
         {
-            Health.Load(this, HealthCount, nowhealth);
+            Health.Load(this, HealthCount, Valueget);
             Health.AttackCheck(sans, heart, 1, 100); // 1！ 5！(前者为攻击锁掉血量，后者为无敌时间(ms))
             Health.SetHurtSound(@".\sound\uts\hurt.wav");
-            // Ending = new Thread(EndThread);
-            // Ending.Start();
         }
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
             Environment.Exit(0);
-        }
-        /*
-        private void EndThread()
-        {
-            while (true)
-            {
-                // 锁血
-                // nowhealth.Text = console.playerHealth;
-                panel2.Size = new Size(console.LineX, console.LineY);
-                Thread.Sleep(50);
-            }
-        }*/
-
-        private void nowhealth_TextChanged(object sender, EventArgs e)
-        {
-            utp.Value = int.Parse(nowhealth.Text);
-            utp.Width = utp.Width * (utp.Value / utp.Maximum);
-            if (nowhealth.Text == "0")
-            {
-                mega.SoundPaused();
-                dead.BackColor = Color.Red;
-                dead.Visible = true;
-                sans.Visible = false;
-                heart.Visible = false;
-                Line.Visible = false;
-                HealthCount.Visible = false;
-                panel1.Visible = false;
-                EndingSound.Load(@".\sound\uts\afterdead.wav");
-                EndingSound.SoundPlay();
-                this.KeyDown += OnKeyDown;
-                // TODO
-                // Ending.Abort();
-            }
         }
         // Restart Game
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -122,7 +92,7 @@ namespace TestEngine
             {
                 EndingSound.SoundStop();
                 utp.Value = 100;
-                nowhealth.Text = "100";
+                Valueget.PlayerHealth = 100;
                 SansInit();
                 HeartInit();
                 HealthInit();
@@ -135,6 +105,29 @@ namespace TestEngine
                 panel1.Visible = true;
                 dead.Visible = false;
                 enemy.AutoAttackCheckSet(heart, 5, 1);
+                this.KeyDown -= OnKeyDown;
+            }
+        }
+
+        private void HealthCount_TextChanged(object sender, EventArgs e)
+        {
+            int PlayerHealth = Valueget.PlayerHealth;
+            Console.WriteLine(PlayerHealth);
+            utp.Value = PlayerHealth;
+            utp.Width = utp.Width * (utp.Value / utp.Maximum);
+            if (PlayerHealth <= 0)
+            {
+                mega.SoundPaused();
+                dead.BackColor = Color.Red;
+                dead.Visible = true;
+                sans.Visible = false;
+                heart.Visible = false;
+                Line.Visible = false;
+                HealthCount.Visible = false;
+                panel1.Visible = false;
+                EndingSound.Load(@".\sound\uts\afterdead.wav");
+                EndingSound.SoundPlay();
+                this.KeyDown += OnKeyDown;
             }
         }
     }

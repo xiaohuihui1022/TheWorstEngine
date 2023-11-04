@@ -14,14 +14,12 @@ namespace TheWorstEngine.UIFunction
         private Form form;
         // 输出文字的label(给用户看的)
         private Label HealthCount;
-        // 输出文字给程序看的
-        private Label NowHealth;
         // 玩家开始的血量
         private int PlayerInitHealth = 100;
         // 玩家当前血量
         private int PlayerNowHealth = 100;
         // 获取值
-        public ValueGet valueget = new ValueGet();
+        public ValueGet Valueget;
 
         /* Attack */
 
@@ -49,14 +47,15 @@ namespace TheWorstEngine.UIFunction
         /// </summary>
         /// <param name="f">窗口</param>
         /// <param name="l">要输出文字的label</param>
-        public void Load(Form f, Label l, Label plyNowHealth)
+        /// <param name="plyNowHealth"></param>
+        public void Load(Form f, Label l, ValueGet valueget)
         {
             form = f;
             HealthCount = l;
-            NowHealth = plyNowHealth;
-            PlayerInitHealth = int.Parse(plyNowHealth.Text);
+            Valueget = valueget;
+            PlayerInitHealth = valueget.PlayerHealth;
             PlayerNowHealth = PlayerInitHealth;
-            l.Text = plyNowHealth.Text + " / " + plyNowHealth.Text;
+            l.Text = PlayerNowHealth + " / " + PlayerInitHealth;
         }
 
         /// <summary>
@@ -106,7 +105,7 @@ namespace TheWorstEngine.UIFunction
         /// <param name="hurt">被攻击音效路径</param>
         public void SetHurtSound(string hurt)
         {
-            valueget.GlobalHurtSound = hurt;
+            Valueget.GlobalHurtSound = hurt;
             isHurtSound = true;
         }
         // 关闭窗口自动终止线程
@@ -130,7 +129,7 @@ namespace TheWorstEngine.UIFunction
                 if (intersected)
                 {
                     // 同步血量
-                    PlayerNowHealth = int.Parse(NowHealth.Text);
+                    PlayerNowHealth = Valueget.PlayerHealth;
                     // 血量减少
                     PlayerNowHealth -= ReduceHeal;
                     if (PlayerNowHealth <= 0)
@@ -138,8 +137,9 @@ namespace TheWorstEngine.UIFunction
                         PlayerNowHealth = 0;
                     }
                     // 被攻击
+                    Valueget.PlayerHealth = PlayerNowHealth;
                     HealthCount.Text = PlayerNowHealth + "/" + PlayerInitHealth;
-                    NowHealth.Text = PlayerNowHealth.ToString();
+                    
                     if (PlayerNowHealth == 0)
                     {
                         return;
@@ -147,7 +147,7 @@ namespace TheWorstEngine.UIFunction
                     if (isHurtSound)
                     {
                         // 播放被攻击音效
-                        SoundEngine.Play2D(valueget.GlobalHurtSound);
+                        SoundEngine.Play2D(Valueget.GlobalHurtSound);
                     }
                     // 是否无敌时间
                     if (isInvicinbleTime)

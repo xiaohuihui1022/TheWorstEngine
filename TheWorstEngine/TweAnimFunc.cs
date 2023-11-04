@@ -435,99 +435,6 @@ namespace TheWorstEngine.AnimFunction
         {
             IrrSoundEngine.SetAllSoundsPaused(false);
         }
-        /*
-        private SoundPlayer player = new SoundPlayer();
-        private bool isLoaded = false;
-        // private Form form;
-        // private IWavePlayer _device;
-        // private AudioFileReader _reader;
-        public void Load(string FileName)
-        {
-            // form = fo;
-            player.SoundLocation = FileName;
-            isLoaded = true;
-        }
-        public void SoundPlay()
-        {
-            if (!isLoaded)
-            {
-                throw new Exception("请先load");
-            }
-            player.Play();
-        }
-        public void SoundStop()
-        {
-            if (!isLoaded)
-            {
-                throw new Exception("请先load");
-            }
-            player.Stop();
-        }*/
-        /*
-        public void WindowSound()
-        {
-            try
-            {
-                // 加载关闭事件
-                form.FormClosed += new FormClosedEventHandler(Form_Closed);
-                var fileName = SoundFileName;
-                if (!File.Exists(fileName))
-                    throw new FileNotFoundException("所选文件不存在");
-                _device = new WaveOutEvent(); // Create device
-                _reader = new AudioFileReader(fileName); // Create reader
-                _device.Init(_reader);
-                _device.PlaybackStopped += Device_OnPlaybackStopped;
-            }
-            catch
-            {
-                DisposeAll();
-                throw;
-            }
-        }
-        private void Form_Closed(object sender, EventArgs e)
-        {
-            DisposeAll();
-        }
-        private void DisposeDevice()
-        {
-            if (_device != null)
-            {
-                _device.PlaybackStopped -= Device_OnPlaybackStopped;
-                _device.Dispose();
-            }
-        }
-        private void Device_OnPlaybackStopped(object obj, StoppedEventArgs arg)
-        {
-            StopSound();
-        }
-        private void DisposeAll()
-        {
-            _reader?.Dispose();
-            DisposeDevice();
-        }
-        /// <summary>
-        /// 停止播放音乐
-        /// </summary>
-        public void StopSound()
-        {
-            _device?.Stop();
-            if (_reader != null) _reader.Position = 0;
-        }
-        /// <summary>
-        /// 播放音乐
-        /// </summary>
-        public void PlaySound()
-        {
-            WindowSound();
-            _device?.Play();
-        }
-        /// <summary>
-        /// 暂停音乐(可以用PlaySound继续播放)
-        /// </summary>
-        public void PauseSound()
-        {
-            _device?.Pause();
-        }*/
     }
 
     public class AnimationLib
@@ -658,14 +565,6 @@ namespace TheWorstEngine.AnimFunction
                 {
                     Console.WriteLine("已移动到位");
                     isMoveFinish = true;
-                    isNorth = false;
-                    isSouth = false;
-                    isWest = false;
-                    isEast = false;
-                    isNaE = false;
-                    isNaW = false;
-                    isSaE = false;
-                    isSaW = false;
                     break;
                 }
                 else if (isMoveFinish)
