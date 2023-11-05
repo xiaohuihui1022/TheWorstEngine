@@ -18,33 +18,33 @@ namespace TestEngine
         TweSound EndingSound = new TweSound();
         UTProgress utp = new UTProgress();
         TweAttackCombo enemy = new TweAttackCombo();
+        Scripter scripter = new Scripter();
 
         // 处理数据
         ValueGet Valueget = new ValueGet();
-
-        private Thread Ending;
         public Form2()
         {
             utp.Value = 100;
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+            // 初始化各种全局数值
+            ValueInit();
+            // 初始化各种Item
             SansInit();
             HeartInit();
             HealthInit();
             ProgressInit();
+            // 加载音乐
             mega.Load(@".\sound\yijibattle.ogg");
             mega.SoundPlay();
-            enemy.Load(this, @".\img\gb\GB1.png", Line, // 换行
-            HealthCount, panel2, Valueget, 50, 50, 10, 10);
-            enemy.SetGlobalHurtSound(@".\sound\uts\hurt.wav");
-            enemy.AutoAttackCheckSet(heart, 5, 1);
-            // CheckHealthThread = new Thread(CheckHealth);
-            // CheckHealthThread.Start();
-            // enemy.EnemyRandomMove();
+            scripter.LoadScript(".\\scripts\\example.script");
+            // enemy.Load(Valueget, @".\img\gb\GB1.png", 50, 50, 10, 10);
+            // enemy.AutoAttackCheckSet(heart, 5, 1);
+
         }
         private void HeartInit()
         {
-            Heart.Load(this, heart);
+            Heart.Load(Valueget, heart);
             Heart.SetResolution(new Size(800, 600));
             // Heart.SetImage(@".\img\red.png");
             Heart.Encircle(Line, heart, 4, 19);
@@ -57,7 +57,7 @@ namespace TestEngine
                   ".\\img\\sans3.png", ".\\img\\sans4.png",
             ".\\img\\sans3.png", ".\\img\\sans2.png", ".\\img\\sans1.png"};
             sans1.SetAnim(FS, 5);
-            sans1.Load(this, sans);
+            sans1.Load(Valueget, sans);
             // sans1.SetImage(@".\img\Froggit.png");
         }
         private void ProgressInit()
@@ -77,9 +77,21 @@ namespace TestEngine
         }
         private void HealthInit()
         {
-            Health.Load(this, HealthCount, Valueget);
-            Health.AttackCheck(sans, heart, 1, 100); // 1！ 5！(前者为攻击锁掉血量，后者为无敌时间(ms))
+            Health.Load(Valueget);
+            // Health.AttackCheck(sans, heart, 1, 100); // 1！ 5！(前者为攻击锁掉血量，后者为无敌时间(ms))
             Health.SetHurtSound(@".\sound\uts\hurt.wav");
+        }
+        private void ValueInit()
+        {
+            Valueget.GlobalHurtSound = @".\sound\uts\hurt.wav";
+            Valueget.HealthCount = this.HealthCount;
+            Valueget.form = this;
+            Valueget.Renderer = this.panel2;
+            Valueget.Line = this.Line;
+            Valueget.SansPicture = this.sans;
+            Valueget.HeartPicture = this.heart;
+            // 设置Scripter
+            scripter.Valueget = Valueget;
         }
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -93,7 +105,6 @@ namespace TestEngine
                 EndingSound.SoundStop();
                 utp.Value = 100;
                 Valueget.PlayerHealth = 100;
-                SansInit();
                 HeartInit();
                 HealthInit();
                 ProgressInit();
@@ -104,7 +115,7 @@ namespace TestEngine
                 HealthCount.Visible = true;
                 panel1.Visible = true;
                 dead.Visible = false;
-                enemy.AutoAttackCheckSet(heart, 5, 1);
+                scripter.LoadScript(".\\scripts\\example.script");
                 this.KeyDown -= OnKeyDown;
             }
         }
@@ -112,11 +123,11 @@ namespace TestEngine
         private void HealthCount_TextChanged(object sender, EventArgs e)
         {
             int PlayerHealth = Valueget.PlayerHealth;
-            Console.WriteLine(PlayerHealth);
             utp.Value = PlayerHealth;
             utp.Width = utp.Width * (utp.Value / utp.Maximum);
             if (PlayerHealth <= 0)
             {
+                Heart.CanMove(false);
                 mega.SoundPaused();
                 dead.BackColor = Color.Red;
                 dead.Visible = true;

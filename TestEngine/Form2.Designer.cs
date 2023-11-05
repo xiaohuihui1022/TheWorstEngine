@@ -45,7 +45,7 @@
             // sans
             // 
             this.sans.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.sans.Location = new System.Drawing.Point(275, 20);
+            this.sans.Location = new System.Drawing.Point(262, 12);
             this.sans.Name = "sans";
             this.sans.Size = new System.Drawing.Size(261, 191);
             this.sans.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -56,7 +56,7 @@
             // 
             this.heart.BackColor = System.Drawing.Color.Transparent;
             this.heart.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("heart.BackgroundImage")));
-            this.heart.Location = new System.Drawing.Point(123, 106);
+            this.heart.Location = new System.Drawing.Point(269, 187);
             this.heart.Name = "heart";
             this.heart.Size = new System.Drawing.Size(16, 16);
             this.heart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -79,7 +79,7 @@
             this.dead.AutoSize = true;
             this.dead.Font = new System.Drawing.Font("微软雅黑", 42F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dead.ForeColor = System.Drawing.Color.Black;
-            this.dead.Location = new System.Drawing.Point(152, 64);
+            this.dead.Location = new System.Drawing.Point(136, 53);
             this.dead.Name = "dead";
             this.dead.Size = new System.Drawing.Size(832, 112);
             this.dead.TabIndex = 7;
@@ -88,7 +88,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Red;
-            this.panel1.Location = new System.Drawing.Point(155, 497);
+            this.panel1.Location = new System.Drawing.Point(155, 503);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(149, 25);
             this.panel1.TabIndex = 9;
@@ -100,18 +100,18 @@
             this.panel2.Controls.Add(this.heart);
             this.panel2.Controls.Add(this.Line);
             this.panel2.ForeColor = System.Drawing.Color.Black;
-            this.panel2.Location = new System.Drawing.Point(268, 238);
+            this.panel2.Location = new System.Drawing.Point(238, 224);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(278, 256);
+            this.panel2.Size = new System.Drawing.Size(314, 255);
             this.panel2.TabIndex = 10;
             // 
             // Line
             // 
             this.Line.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Line.BackgroundImage")));
             this.Line.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Line.Location = new System.Drawing.Point(0, 0);
+            this.Line.Location = new System.Drawing.Point(3, 3);
             this.Line.Name = "Line";
-            this.Line.Size = new System.Drawing.Size(259, 217);
+            this.Line.Size = new System.Drawing.Size(287, 222);
             this.Line.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Line.TabIndex = 2;
             this.Line.TabStop = false;
@@ -121,12 +121,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(784, 562);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(789, 562);
             this.Controls.Add(this.sans);
             this.Controls.Add(this.HealthCount);
-            this.Controls.Add(this.dead);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.dead);
             this.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "Form2";

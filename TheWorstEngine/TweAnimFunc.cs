@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 // 音频处理
 using IrrKlang;
+using TheWorstEngine.Developer;
 // KeyManager
 // using System.Runtime.InteropServices;   //调用WINDOWS API函数时要用到
 // using Microsoft.Win32;  //写入注册表时要用到
@@ -69,11 +70,10 @@ namespace TheWorstEngine.AnimFunction
         private PictureBox Encirclement;
         // 被包围(相当于UT的决心)
         private PictureBox BeEncirclement;
-        // 初始化函数 懒得用get set
-        public void Load(Form fo, PictureBox picture)
+        public void Load(ValueGet valueGet, PictureBox image)
         {
-            form = fo;
-            picturebox = picture;
+            form = valueGet.form;
+            picturebox = image;
         }
         /// <summary>
         /// 设置窗口分辨率
@@ -390,7 +390,7 @@ namespace TheWorstEngine.AnimFunction
                 }
                 form.KeyDown += new KeyEventHandler(Hook_KeyDown);
                 form.KeyUp += new KeyEventHandler(Hook_KeyUp);
-                Thread.Sleep(1);
+                Thread.Sleep(5);
             }
         }
     }
@@ -451,8 +451,8 @@ namespace TheWorstEngine.AnimFunction
         // 开始移动线程
         private Thread StartMoveThread;
 
-        // 是否完成移动（公开）
-        public bool isMoveFinish = false;
+        // 是否完成移动
+        public bool isMoveFinish = true;
 
         /// <summary>
         /// 加载函数
@@ -472,10 +472,16 @@ namespace TheWorstEngine.AnimFunction
         /// <summary>
         /// 开始动画函数（请先load里配置好在用）
         /// </summary>
-        public void Start()
+        public void StartMove()
         {
-            isMoveFinish = false;
-            StartMoveThread.Start();
+            if (StartMoveThread.IsAlive)
+            {
+                StartMoveThread.Join();
+            }
+            else
+            {
+                StartMoveThread.Start();
+            }
         }
 
         /// <summary>
@@ -490,6 +496,13 @@ namespace TheWorstEngine.AnimFunction
         // 开始线程
         private void StartThread()
         {
+            while (!isMoveFinish)
+            {
+                Console.WriteLine(isMoveFinish);
+                Thread.Sleep(100);
+            }
+            // 重置状态
+            isMoveFinish = false;
             #region 变量设置
             // 原来的坐标
             int fx = NeedMove.Location.X;
@@ -563,13 +576,11 @@ namespace TheWorstEngine.AnimFunction
                 #region 判断语句
                 if (Math.Abs(fxn - nx) <= MoveSpeed && Math.Abs(fyn - ny) <= MoveSpeed)
                 {
-                    Console.WriteLine("已移动到位");
                     isMoveFinish = true;
-                    break;
+                    StartMoveThread.Abort();
                 }
                 else if (isMoveFinish)
                 {
-                    Console.WriteLine("已移动到位");
                     isNorth = false;
                     isSouth = false;
                     isWest = false;

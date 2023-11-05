@@ -3,6 +3,7 @@ using System.Threading;
 using System.Windows.Forms;
 using TheWorstEngine.Developer;
 using IrrKlang;
+using System;
 
 namespace TheWorstEngine.UIFunction
 {
@@ -32,7 +33,7 @@ namespace TheWorstEngine.UIFunction
         // 攻击检测线程
         private Thread BeAttackThread;
         // 是否有被攻击后的无敌时间
-        private bool isInvicinbleTime;
+        private bool isInvincibleTime;
         // 线程是否被关闭
         private bool isAttackThreadClosed = false;
         // 无敌时间长短(秒)
@@ -40,7 +41,6 @@ namespace TheWorstEngine.UIFunction
 
         /* sound */
         private readonly ISoundEngine SoundEngine = new ISoundEngine();
-        private bool isHurtSound = false;
 
         /// <summary>
         /// 初始化加载函数
@@ -48,14 +48,15 @@ namespace TheWorstEngine.UIFunction
         /// <param name="f">窗口</param>
         /// <param name="l">要输出文字的label</param>
         /// <param name="plyNowHealth"></param>
-        public void Load(Form f, Label l, ValueGet valueget)
+        public void Load(ValueGet valueget)
         {
-            form = f;
-            HealthCount = l;
+            Console.WriteLine("ValueGetTest:" + valueget.form.Name);
+            form = valueget.form;
+            HealthCount = valueget.HealthCount;
             Valueget = valueget;
             PlayerInitHealth = valueget.PlayerHealth;
             PlayerNowHealth = PlayerInitHealth;
-            l.Text = PlayerNowHealth + " / " + PlayerInitHealth;
+            HealthCount.Text = PlayerNowHealth + " / " + PlayerInitHealth;
         }
 
         /// <summary>
@@ -81,13 +82,13 @@ namespace TheWorstEngine.UIFunction
         /// <param name="AttackItem">攻击者(如sans的骨头)</param>
         /// <param name="BeAttackItem">被攻击者(如决心)</param>
         /// <param name="ReduceHealth">被攻击所减少的血量</param>
-        /// <param name="Invicinble">无敌时间长短(毫秒)</param>
+        /// <param name="Invincible">无敌时间长短(毫秒)</param>
         public void AttackCheck(PictureBox AttackItem, PictureBox BeAttackItem,
-             int ReduceHealth, int Invicinble)
+             int ReduceHealth, int Invincible)
         {
-            isInvicinbleTime = true;
-            InvicibleTime = Invicinble;
-            AttackCheck(AttackItem, BeAttackItem, ReduceHeal);
+            isInvincibleTime = true;
+            InvicibleTime = Invincible;
+            AttackCheck(AttackItem, BeAttackItem, ReduceHealth);
         }
 
         /// <summary>
@@ -106,7 +107,6 @@ namespace TheWorstEngine.UIFunction
         public void SetHurtSound(string hurt)
         {
             Valueget.GlobalHurtSound = hurt;
-            isHurtSound = true;
         }
         // 关闭窗口自动终止线程
         private void Form_Closing(object sender,FormClosingEventArgs e)
@@ -144,13 +144,10 @@ namespace TheWorstEngine.UIFunction
                     {
                         return;
                     }
-                    if (isHurtSound)
-                    {
-                        // 播放被攻击音效
-                        SoundEngine.Play2D(Valueget.GlobalHurtSound);
-                    }
+                    // 播放被攻击音效
+                    SoundEngine.Play2D(Valueget.GlobalHurtSound);
                     // 是否无敌时间
-                    if (isInvicinbleTime)
+                    if (isInvincibleTime)
                     {
                         Thread.Sleep(InvicibleTime);
                     }

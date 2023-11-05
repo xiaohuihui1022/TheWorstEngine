@@ -23,6 +23,9 @@ namespace TheWorstEngine.AttackCombo
         // 判定框的pb
         private PictureBox linebox;
 
+        // 判定panel
+        private Panel IMGPanel;
+
         private Thread EnemyMoveThread;
 
         // 被攻击后减少的血量
@@ -36,35 +39,42 @@ namespace TheWorstEngine.AttackCombo
 
         // 自制的攻击检测函数
         TweText AtCheck = new TweText();
-        
+
         /// <summary>
         /// 初始化
         /// </summary>
-        /// <param name="fo">当前窗口(填this即可)</param>
         /// <param name="img">单个图片路径</param>
-        /// <param name="square">活动框的picturebox</param>
-        /// <param name="HealthCountL">显示血量的label</param>
-        /// <param name="imgpanel">图床所用的panel</param>
-        /// <param name="HealthGetSet">给程序看的healthlabel</param>
+        /// <param name="Valueget">ValueGet</param>
         /// <param name="Height">图片的高</param>
         /// <param name="Width">图片的宽</param>
         /// <param name="x">图片初始位置的x</param>
         /// <param name="y">图片初始位置的y</param>
-        public void Load(Form fo, string img, PictureBox square,Label HealthCountL, Panel imgpanel,
-            ValueGet Valueget, int Width, int Height, int x, int y)
+        public void Load(ValueGet Valueget, string img, int Width, int Height, int x, int y)
         {
-            form = fo;
+            form = Valueget.form;
             // SingleImg = img;
-            linebox = square;
+            linebox = Valueget.Line;
             AttackItem = new PictureBox();
             AttackItem.SizeMode = PictureBoxSizeMode.StretchImage;
             AttackItem.Width = Width;
             AttackItem.Height = Height;
             AttackItem.Image = Image.FromFile(img);
             AttackItem.Location = new Point(x, y);
-            imgpanel.Controls.Add(AttackItem);
-            square.SendToBack();
-            AtCheck.Load(fo, HealthCountL, Valueget);
+            IMGPanel = Valueget.Renderer;
+            // 异步调用
+            if (IMGPanel.InvokeRequired)
+            {
+                IMGPanel.Invoke(new MethodInvoker(delegate
+                {
+                    IMGPanel.Controls.Add(AttackItem);
+                }));
+            }
+            else
+            {
+                IMGPanel.Controls.Add(AttackItem);
+            }
+            linebox.SendToBack();
+            AtCheck.Load(Valueget);
         }
 
         /// <summary>
@@ -84,12 +94,6 @@ namespace TheWorstEngine.AttackCombo
         }
 
         /// <summary>
-        /// 设置全局hurtsound（一个项目只用设置一次，全局应用）
-        /// </summary>
-        /// <param name="Hurtsound">受伤音效位置</param>
-        public void SetGlobalHurtSound(string Hurtsound) => AtCheck.SetHurtSound(Hurtsound);
-
-        /// <summary>
         /// 移动到的坐标
         /// 建议向着四面八方移动，其他角度类型的移动我把握不住
         /// </summary>
@@ -98,10 +102,13 @@ namespace TheWorstEngine.AttackCombo
         public void MoveTo(int x, int y)
         {
             Point MoveTowards = new Point(x, y);
-            animationLib.Load(AttackItem, 5, MoveTowards, form);
-            animationLib.Start();
+            animationLib.Load(AttackItem, 3, MoveTowards, form);
+            animationLib.StartMove();
         }
 
+        /* 测试代码
+         
+         
         /// <summary>
         /// 敌人随机移动
         /// </summary>
@@ -152,7 +159,13 @@ namespace TheWorstEngine.AttackCombo
                     }
                 }
             }
+        }*/
+
+        public void EnemyDestroy()
+        {
+            IMGPanel.Controls.Remove(AttackItem);
         }
+
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
             EnemyMoveThread.Abort();

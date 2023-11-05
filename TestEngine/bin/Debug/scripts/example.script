@@ -1,0 +1,11 @@
+Enemy = InitEnemy(.\img\gb\GB1.png, 50, 50, 10, 10)
+Enemy.MoveTo(200, 200)
+
+Wait(5)
+
+Enemy2 = InitEnemy(.\img\gb\GB3.png, 50, 50, 10, 10)
+Enemy2.MoveTo(50, 50)
+
+Wait(5)
+
+Enemy.MoveTo(100, 100)
