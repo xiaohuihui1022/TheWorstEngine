@@ -570,7 +570,7 @@ namespace TheWorstEngine.AnimFunction
             // 本体
             while (true)
             {
-                Point NowPoint = new Point();
+                Point NowPoint;
                 int fxn = NeedMove.Location.X;
                 int fyn = NeedMove.Location.Y;
                 #region 判断语句
@@ -630,7 +630,6 @@ namespace TheWorstEngine.AnimFunction
                 #endregion
                 NeedMove.Location = NowPoint;
                 Thread.Sleep(10);
-                NeedMove.BackColor = Color.Transparent;
             }
         }
 

@@ -66,14 +66,7 @@ namespace TestEngine
             utp.Dock = DockStyle.Fill;
             utp.Minimum = 0;
             utp.Maximum = 100;
-            // 防止闪烁现象 
-            Label l = new Label();
-            l.Parent = utp;
-            l.BackColor = Color.Transparent;
-            l.ForeColor = Color.Red;
-            l.TextAlign = ContentAlignment.MiddleCenter;
-            l.Width = utp.Width;
-            l.Height = utp.Height;
+
         }
         private void HealthInit()
         {

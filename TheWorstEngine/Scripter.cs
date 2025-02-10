@@ -61,7 +61,7 @@ namespace TheWorstEngine.Developer
                             int.Parse(args[4]
                         ));
                         Temp.AutoAttackCheckSet(Valueget.HeartPicture, 5, 50);
-                        TempVars.Add(line.Replace(" ", "").Split('=')[0], Temp); ;
+                        TempVars.Add(line.Replace(" ", "").Split('=')[0], Temp);
                     }
                 }
 
